@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プラン変更完了</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        /* Custom styles */
+        .progress {
+            height: 4px;
+        }
+        .progress-step {
+            position: relative;
+            z-index: 1;
+        }
+        .progress-step-active {
+            color: #2563eb;
+            font-weight: bold;
+        }
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #e2e8f0;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .step-circle-complete {
+            background-color: #2563eb;
+        }
+        .step-circle-complete::after {
+            content: "✓";
+            color: white;
+        }
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background-color: #22c55e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+        .success-icon-bg {
+            width: 96px;
+            height: 96px;
+            background-color: #dcfce7;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .next-steps {
+            background-color: #f0f9ff;
+            border: 1px solid #e0f2fe;
+        }
+        .next-steps-icon {
+            color: #0369a1;
+            font-size: 1.25rem;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fadeInUp {
+            animation: fadeInUp 0.5s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <!-- Header -->
+    <header class="bg-white border-bottom">
+        <div class="container">
+            <div class="py-3">
+                <h1 class="h5 mb-0 fw-bold">プラン変更完了</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- Progress bar -->
+    <div class="progress rounded-0">
+        <div class="progress-bar bg-primary" style="width: 100%"></div>
+    </div>
+
+    <!-- Progress steps -->
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8">
+                <div class="d-flex justify-content-between">
+                    <div class="progress-step text-center">
+                        <div class="step-circle step-circle-complete mx-auto"></div>
+                        <small class="d-block mt-2 text-primary">プランの確認</small>
+                    </div>
+                    <div class="progress-step text-center">
+                        <div class="step-circle step-circle-complete mx-auto"></div>
+                        <small class="d-block mt-2 text-primary">お支払い</small>
+                    </div>
+                    <div class="progress-step text-center">
+                        <div class="step-circle step-circle-complete mx-auto"></div>
+                        <small class="d-block mt-2 progress-step-active">完了</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="container my-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8">
+                <!-- Success message -->
+                <div class="card mb-4 animate-fadeInUp">
+                    <div class="card-body text-center py-5">
+                        <div class="success-icon-bg mx-auto mb-4">
+                            <div class="success-icon">
+                                <i class="bi bi-check-lg"></i>
+                            </div>
+                        </div>
+                        <h2 class="h4 fw-bold mb-3">プラン変更が完了しました</h2>
+                        <p class="text-secondary mb-0">確認メールをお送りしました</p>
+                        <p class="text-secondary small">メールが届かない場合はスパムフォルダをご確認ください</p>
+                    </div>
+                </div>
+
+                <!-- Change summary -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="h6 fw-bold mb-4">変更内容のご確認</h2>
+                        <div class="bg-light p-4 rounded">
+                            <div class="mb-4">
+                                <label class="text-secondary small d-block mb-1">変更前</label>
+                                <p class="mb-0">英語完成コース（¥9,800/月）</p>
+                            </div>
+                            <div class="d-flex align-items-center mb-4">
+                                <i class="bi bi-arrow-down text-secondary"></i>
+                            </div>
+                            <div>
+                                <label class="text-secondary small d-block mb-1">変更後</label>
+                                <p class="mb-0">英数国完成コース（¥16,500/月）</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Next steps -->
+                <div class="card next-steps mb-4">
+                    <div class="card-body">
+                        <h2 class="h6 fw-bold mb-3">次のステップ</h2>
+                        <div class="d-flex align-items-start mb-2">
+                            <i class="bi bi-journal-text next-steps-icon me-3"></i>
+                            <p class="mb-0">新しいコースが利用可能になりました</p>
+                        </div>
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-play-circle next-steps-icon me-3"></i>
+                            <p class="mb-0">マイページから学習を開始できます</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action buttons -->
+                <div class="d-flex flex-column flex-sm-row justify-content-between gap-3">
+                    <a href="plan-selection.html" class="btn btn-light border order-2 order-sm-1">
+                        マイページへ戻る
+                    </a>
+                    <button type="button" class="btn btn-primary order-1 order-sm-2">
+                        学習を始める
+                    </button>
+                </div>
+
+                <!-- Support info -->
+                <p class="text-secondary small text-center mt-4">
+                    ご不明な点がございましたら、お気軽にお問い合わせください
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

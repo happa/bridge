@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>コース選択</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* 必要最小限のカスタムスタイル */
+    .course-image {
+      aspect-ratio: 16/9;
+    }
+    
+    .feature-icon {
+      width: 16px;
+      height: 16px;
+      color: #737579;
+    }
+
+    .btn-change {
+      border-radius: 9999px;
+      background-color: #1a1a1a;
+      transition: background-color 0.2s;
+    }
+
+    .btn-change:hover {
+      background-color: #333;
+    }
+    .nav-tabs .nav-link {
+            color: #6b7280;
+            border: none;
+            padding: 1rem 1.5rem;
+            font-size: 14px;
+        }
+        .nav-tabs .nav-link.active {
+            color: #2563eb;
+            border-bottom: 2px solid #2563eb;
+        }
+
+    /* スマホ表示時にカード下の余白を強調したい場合（任意） */
+    @media (max-width: 576px) {
+      .card {
+        margin-bottom: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body class="bg-light">
+  <div class="container bg-white py-5">
+
+    <!-- 現在のプラン -->
+    <div class="current-plan my-5">
+        
+        <div class="current-plan-content">
+            <div class="row">
+              <div class="col-md-3">
+                <img src="eisu.png" class="img-fluid">
+              </div>
+              <div class="col-md-7">
+                <div class="card-body">
+                    <h2 class="h6 fw-bold mb-4">現在のプラン</h2>
+                    <h3 class="h5 fw-bold">英数国完成コース</h3>
+                    <p class="text-secondary mb-2">契約更新日: 2025/03/06</p>
+                    <p class="text-secondary">月額料金: ¥1,100</p>
+                </div>
+                
+              </div>
+            </div>
+            
+            
+        </div>
+    </div>
+
+    <!-- タブナビゲーション -->
+    <ul class="nav nav-tabs mb-5">
+        <li class="nav-item">
+            <a class="nav-link" href="course-list.html">コース一覧</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="change-card.html">支払い</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="plan-select.html">プラン変更</a>
+        </li>
+    </ul>
+
+    <!-- .row に g-4 を追加して、カード間に十分な間隔を確保 -->
+    <div class="row justify-content-center g-4">
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card border-0 bg-light rounded-4 overflow-hidden">
+          <!-- コース画像 -->
+          <div class="course-image position-relative">
+            <img src="t-e.png" alt="英語完成コース" class="w-100 h-100 object-fit-cover">
+          </div>
+
+          <!-- コース内容 -->
+          <div class="card-body p-4">
+            <h2 class="fs-5 fw-bold mb-2">英語完成コース</h2>
+            <p class="fs-6 mb-4">9,900円 / 月</p>
+
+            <!-- 変更ボタン -->
+            <a href="plan-confirm.html" class="btn btn-change text-white w-100 py-3 mb-4">
+              このプランに変更する
+            </a>
+
+            <!-- 機能一覧 -->
+            <ul class="list-unstyled m-0">
+              <li class="d-flex align-items-center gap-3 mb-2">
+                <div class="feature-icon d-flex align-items-center justify-content-center flex-shrink-0">
+                  <i class="fas fa-check-circle"></i>
+                </div>
+                <span class="fs-6">プロによる添削サービス付き</span>
+              </li>
+              <li class="d-flex align-items-center gap-3 mb-2">
+                <div class="feature-icon d-flex align-items-center justify-content-center flex-shrink-0">
+                  <i class="fas fa-play-circle"></i>
+                </div>
+                <span class="fs-6">300以上の授業動画が見放題</span>
+              </li>
+              <li class="d-flex align-items-center gap-3 mb-2">
+                <div class="feature-icon d-flex align-items-center justify-content-center flex-shrink-0">
+                  <i class="fas fa-tasks"></i>
+                </div>
+                <span class="fs-6">TOEIC対策の模擬テスト200問</span>
+              </li>
+              <li class="d-flex align-items-center gap-3 mb-2">
+                <div class="feature-icon d-flex align-items-center justify-content-center flex-shrink-0">
+                  <i class="fas fa-comments"></i>
+                </div>
+                <span class="fs-6">月1回の講師との個別面談</span>
+              </li>
+              <li class="d-flex align-items-center gap-3 mb-2">
+                <div class="feature-icon d-flex align-items-center justify-content-center flex-shrink-0">
+                  <i class="fas fa-users"></i>
+                </div>
+                <span class="fs-6">グループディスカッション練習</span>
+              </li>
+              <li class="d-flex align-items-center gap-3 mb-2">
+                <div class="feature-icon d-flex align-items-center justify-content-center flex-shrink-0">
+                  <i class="fas fa-mobile-alt"></i>
+                </div>
+                <span class="fs-6">スマホで24時間学習可能</span>
+              </li>
+              <li class="d-flex align-items-center gap-3 mb-2">
+                <div class="feature-icon d-flex align-items-center justify-content-center flex-shrink-0">
+                  <i class="fas fa-chart-line"></i>
+                </div>
+                <span class="fs-6">学習進捗の可視化とレポート機能</span>
+              </li>
+              <li class="d-flex align-items-center gap-3 mb-2">
+                <div class="feature-icon d-flex align-items-center justify-content-center flex-shrink-0">
+                  <i class="fas fa-calendar-check"></i>
+                </div>
+                <span class="fs-6">いつでもコース変更可能</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card border-0 bg-light rounded-4 overflow-hidden">
+          <!-- コース画像 -->
+          <div class="course-image position-relative">
+            <img src="t-eks.png" alt="英数国完成コース" class="w-100 h-100 object-fit-cover">
+          </div>
+
+          <!-- コース内容 -->
+          <div class="card-body p-4">
+            <h2 class="fs-5 fw-bold mb-2">英数国完成コース</h2>
+            <p class="fs-6 mb-4">16,500円 / 月</p>
+
+            <!-- 変更ボタン -->
+            <button class="btn btn-change text-white w-100 py-3 mb-4">
+              このプランに変更する
+            </button>
+
+            <!-- 機能一覧 -->
+            <ul class="list-unstyled m-0">
+              <li class="d-flex align-items-center gap-3 mb-2">
+                <div class="feature-icon d-flex align-items-center justify-content-center flex-shrink-0">
+                  <i class="fas fa-book"></i>
+                </div>
+                <span class="fs-6">3教科の総合的な学習</span>
+              </li>
+              <li class="d-flex align-items-center gap-3 mb-2">
+                <div class="feature-icon d-flex align-items-center justify-content-center flex-shrink-0">
+                  <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <span class="fs-6">専門講師による指導</span>
+              </li>
+              <li class="d-flex align-items-center gap-3 mb-2">
+                <div class="feature-icon d-flex align-items-center justify-content-center flex-shrink-0">
+                  <i class="fas fa-file-alt"></i>
+                </div>
+                <span class="fs-6">定期テスト対策問題集</span>
+              </li>
+              <li class="d-flex align-items-center gap-3 mb-2">
+                <div class="feature-icon d-flex align-items-center justify-content-center flex-shrink-0">
+                  <i class="fas fa-pencil-alt"></i>
+                </div>
+                <span class="fs-6">週末課題の添削指導</span>
+              </li>
+              <li class="d-flex align-items-center gap-3 mb-2">
+                <div class="feature-icon d-flex align-items-center justify-content-center flex-shrink-0">
+                  <i class="fas fa-chart-bar"></i>
+                </div>
+                <span class="fs-6">成績分析レポート</span>
+              </li>
+              <li class="d-flex align-items-center gap-3 mb-2">
+                <div class="feature-icon d-flex align-items-center justify-content-center flex-shrink-0">
+                  <i class="fas fa-clipboard-check"></i>
+                </div>
+                <span class="fs-6">学習進捗管理</span>
+              </li>
+              <li class="d-flex align-items-center gap-3 mb-2">
+                <div class="feature-icon d-flex align-items-center justify-content-center flex-shrink-0">
+                  <i class="fas fa-video"></i>
+                </div>
+                <span class="fs-6">オンライン補習授業</span>
+              </li>
+              <li class="d-flex align-items-center gap-3 mb-2">
+                <div class="feature-icon d-flex align-items-center justify-content-center flex-shrink-0">
+                  <i class="fas fa-question-circle"></i>
+                </div>
+                <span class="fs-6">24時間質問対応</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card border-0 bg-light rounded-4 overflow-hidden">
+          <!-- コース画像 -->
+          <div class="course-image position-relative">
+            <img src="t-dt.png" alt="英語完成コース" class="w-100 h-100 object-fit-cover">
+          </div>
+
+          <!-- コース内容 -->
+          <div class="card-body p-4">
+            <h2 class="fs-5 fw-bold mb-2">英語完成コース</h2>
+            <p class="fs-6 mb-4">9,800円 / 月</p>
+
+            <!-- 変更ボタン -->
+            <button class="btn btn-change text-white w-100 py-3 mb-4">
+              このプランに変更する
+            </button>
+
+            <!-- 機能一覧 -->
+            <ul class="list-unstyled m-0">
+              <li class="d-flex align-items-center gap-3 mb-2">
+                <div class="feature-icon d-flex align-items-center justify-content-center flex-shrink-0">
+                  <i class="fas fa-book-reader"></i>
+                </div>
+                <span class="fs-6">充実の読書教材</span>
+              </li>
+              <li class="d-flex align-items-center gap-3 mb-2">
+                <div class="feature-icon d-flex align-items-center justify-content-center flex-shrink-0">
+                  <i class="fas fa-pen-fancy"></i>
+                </div>
+                <span class="fs-6">作文・小論文指導</span>
+              </li>
+              <li class="d-flex align-items-center gap-3 mb-2">
+                <div class="feature-icon d-flex align-items-center justify-content-center flex-shrink-0">
+                  <i class="fas fa-comments"></i>
+                </div>
+                <span class="fs-6">オンラインディスカッション</span>
+              </li>
+              <li class="d-flex align-items-center gap-3 mb-2">
+                <div class="feature-icon d-flex align-items-center justify-content-center flex-shrink-0">
+                  <i class="fas fa-edit"></i>
+                </div>
+                <span class="fs-6">文章添削サービス</span>
+              </li>
+              <li class="d-flex align-items-center gap-3 mb-2">
+                <div class="feature-icon d-flex align-items-center justify-content-center flex-shrink-0">
+                  <i class="fas fa-microphone"></i>
+                </div>
+                <span class="fs-6">スピーチ練習</span>
+              </li>
+              <li class="d-flex align-items-center gap-3 mb-2">
+                <div class="feature-icon d-flex align-items-center justify-content-center flex-shrink-0">
+                  <i class="fas fa-book-open"></i>
+                </div>
+                <span class="fs-6">読書感想文指導</span>
+              </li>
+              <li class="d-flex align-items-center gap-3 mb-2">
+                <div class="feature-icon d-flex align-items-center justify-content-center flex-shrink-0">
+                  <i class="fas fa-users"></i>
+                </div>
+                <span class="fs-6">グループ読書会</span>
+              </li>
+              <li class="d-flex align-items-center gap-3 mb-2">
+                <div class="feature-icon d-flex align-items-center justify-content-center flex-shrink-0">
+                  <i class="fas fa-star"></i>
+                </div>
+                <span class="fs-6">月間優秀作品の表彰</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div> <!-- /.row -->
+  </div> <!-- /.container -->
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

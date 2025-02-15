@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>中学生向けコース一覧</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <style>
+    /* 背景・基本レイアウト */
+    body {
+      background-color: #f8f9fa;
+    }
+    .course-card {
+      border: none;
+      border-radius: 12px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .course-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    /* タイポグラフィ */
+    .card-title {
+      font-weight: 600;
+      color: #343a40;
+    }
+    .card-text {
+      color: #6c757d;
+    }
+
+    /* アイコンの色付け */
+    .course-icon {
+      font-size: 1.5rem;
+      color: #0d6efd;
+    }
+    .info-icon {
+      color: #0d6efd;
+    }
+
+    /* レベルラベルのカスタム */
+    .badge-level {
+      font-size: 0.9rem;
+      border-radius: 999px;
+      padding: 0.5em 0.75em;
+      font-weight: 500;
+    }
+    .badge-beginner {
+      background-color: #d1e7dd;
+      color: #0f5132;
+    }
+    .badge-intermediate {
+      background-color: #fff3cd;
+      color: #664d03;
+    }
+    .badge-advanced {
+      background-color: #f8d7da;
+      color: #842029;
+    }
+
+    /* 進捗バーの調整 */
+    .progress {
+      background-color: #e9ecef;
+      border-radius: 5px;
+    }
+    .progress-bar {
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    .nav-tabs .nav-link {
+            color: #6b7280;
+            border: none;
+            padding: 1rem 1.5rem;
+            font-size: 14px;
+        }
+        .nav-tabs .nav-link.active {
+            color: #2563eb;
+            border-bottom: 2px solid #2563eb;
+        }
+  </style>
+</head>
+<body>
+  <div class="container py-5">
+    <!-- 現在のプラン -->
+    <!-- 現在のプラン -->
+    <div class="current-plan my-5">
+        
+        <div class="current-plan-content">
+            <div class="row">
+              <div class="col-md-3">
+                <img src="eisu.png" class="img-fluid">
+              </div>
+              <div class="col-md-7">
+                <div class="card-body">
+                    <h2 class="h6 fw-bold mb-4">現在のプラン</h2>
+                    <h3 class="h5 fw-bold">英数国完成コース</h3>
+                    <p class="text-secondary mb-2">契約更新日: 2025/03/06</p>
+                    <p class="text-secondary">月額料金: ¥1,100</p>
+                </div>
+                
+              </div>
+            </div>
+            
+            
+        </div>
+    </div>
+<!-- タブナビゲーション -->
+    <ul class="nav nav-tabs mb-4">
+        <li class="nav-item">
+            <a class="nav-link active" href="course-list.html">コース一覧</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="change-card.html">支払い</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="plan-selection.html">プラン変更</a>
+        </li>
+    </ul>
+
+
+
+    <!-- 英語基礎 -->
+    <div class="card course-card mb-4">
+      <div class="row g-0 align-items-center">
+        <div class="col-md-2">
+          <img src="kokugo.jpg" class="img-fluid rounded-start" alt="中1英語基礎">
+        </div>
+        <div class="col-md-10">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <div>
+                <h5 class="card-title mb-1">
+                  <i class="bi bi-translate me-2 course-icon"></i>中1英語基礎マスター
+                </h5>
+                <p class="card-text">be動詞から現在形・過去形まで！中1の英語の土台をしっかり固めよう</p>
+              </div>
+              <span class="badge badge-level badge-beginner">初級</span>
+            </div>
+            <div class="row text-muted mb-3">
+              <div class="col-auto"><i class="bi bi-clock me-1 info-icon"></i>60日間</div>
+              <div class="col-auto"><i class="bi bi-journal-text me-1 info-icon"></i>30レッスン</div>
+              <div class="col-auto"><i class="bi bi-trophy me-1 info-icon"></i>5つの修了証</div>
+            </div>
+            <div class="progress" style="height: 8px;">
+              <div class="progress-bar bg-success" role="progressbar" style="width: 85%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">85%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 数学代数 -->
+    <div class="card course-card mb-4">
+      <div class="row g-0 align-items-center">
+        <div class="col-md-2">
+          <img src="/api/placeholder/200/200" class="img-fluid rounded-start" alt="中2数学代数">
+        </div>
+        <div class="col-md-10">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <div>
+                <h5 class="card-title mb-1">
+                  <i class="bi bi-plus-slash-minus me-2 course-icon"></i>中2数学・連立方程式完全攻略
+                </h5>
+                <p class="card-text">文字式から方程式まで、体系的に学習。基礎から応用までしっかり理解！</p>
+              </div>
+              <span class="badge badge-level badge-intermediate">中級</span>
+            </div>
+            <div class="row text-muted mb-3">
+              <div class="col-auto"><i class="bi bi-clock me-1 info-icon"></i>45日間</div>
+              <div class="col-auto"><i class="bi bi-journal-text me-1 info-icon"></i>25レッスン</div>
+              <div class="col-auto"><i class="bi bi-trophy me-1 info-icon"></i>4つの修了証</div>
+            </div>
+            <div class="progress" style="height: 8px;">
+              <div class="progress-bar bg-warning" role="progressbar" style="width: 32%;" aria-valuenow="32" aria-valuemin="0" aria-valuemax="100">32%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 国語現代文 -->
+    <div class="card course-card mb-4">
+      <div class="row g-0 align-items-center">
+        <div class="col-md-2">
+          <img src="/api/placeholder/200/200" class="img-fluid rounded-start" alt="中3国語現代文">
+        </div>
+        <div class="col-md-10">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <div>
+                <h5 class="card-title mb-1">
+                  <i class="bi bi-book me-2 course-icon"></i>中3国語・現代文読解特講
+                </h5>
+                <p class="card-text">評論文から小説まで、読解力を鍛える！入試頻出の文章も徹底演習</p>
+              </div>
+              <span class="badge badge-level badge-advanced">上級</span>
+            </div>
+            <div class="row text-muted mb-3">
+              <div class="col-auto"><i class="bi bi-clock me-1 info-icon"></i>40日間</div>
+              <div class="col-auto"><i class="bi bi-journal-text me-1 info-icon"></i>20レッスン</div>
+              <div class="col-auto"><i class="bi bi-trophy me-1 info-icon"></i>3つの修了証</div>
+            </div>
+            <div class="progress" style="height: 8px;">
+              <div class="progress-bar " role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">65%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 数学図形 -->
+    <div class="card course-card mb-4">
+      <div class="row g-0 align-items-center">
+        <div class="col-md-2">
+          <img src="/api/placeholder/200/200" class="img-fluid rounded-start" alt="中1数学図形">
+        </div>
+        <div class="col-md-10">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <div>
+                <h5 class="card-title mb-1">
+                  <i class="bi bi-pentagon me-2 course-icon"></i>中1数学・図形の基礎
+                </h5>
+                <p class="card-text">角度や図形の性質をわかりやすく解説。証明の基礎も身につく！</p>
+              </div>
+              <span class="badge badge-level badge-beginner">初級</span>
+            </div>
+            <div class="row text-muted mb-3">
+              <div class="col-auto"><i class="bi bi-clock me-1 info-icon"></i>35日間</div>
+              <div class="col-auto"><i class="bi bi-journal-text me-1 info-icon"></i>18レッスン</div>
+              <div class="col-auto"><i class="bi bi-trophy me-1 info-icon"></i>3つの修了証</div>
+            </div>
+            <div class="progress" style="height: 8px;">
+              <div class="progress-bar bg-success" role="progressbar" style="width: 15%;" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">15%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 英語長文 -->
+    <div class="card course-card mb-4">
+      <div class="row g-0 align-items-center">
+        <div class="col-md-2">
+          <img src="/api/placeholder/200/200" class="img-fluid rounded-start" alt="中3英語長文">
+        </div>
+        <div class="col-md-10">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <div>
+                <h5 class="card-title mb-1">
+                  <i class="bi bi-file-text me-2 course-icon"></i>中3英語・長文読解マスター
+                </h5>
+                <p class="card-text">入試レベルの長文に挑戦！文構造の理解から読解のコツまで徹底解説</p>
+              </div>
+              <span class="badge badge-level badge-advanced">上級</span>
+            </div>
+            <div class="row text-muted mb-3">
+              <div class="col-auto"><i class="bi bi-clock me-1 info-icon"></i>50日間</div>
+              <div class="col-auto"><i class="bi bi-journal-text me-1 info-icon"></i>28レッスン</div>
+              <div class="col-auto"><i class="bi bi-trophy me-1 info-icon"></i>5つの修了証</div>
+            </div>
+            <div class="progress" style="height: 8px;">
+              <div class="progress-bar " role="progressbar" style="width: 48%;" aria-valuenow="48" aria-valuemin="0" aria-valuemax="100">48%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 国語古文 -->
+    <div class="card course-card mb-4">
+      <div class="row g-0 align-items-center">
+        <div class="col-md-2">
+          <img src="/api/placeholder/200/200" class="img-fluid rounded-start" alt="中2国語古文">
+        </div>
+        <div class="col-md-10">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <div>
+                <h5 class="card-title mb-1">
+                  <i class="bi bi-book-half me-2 course-icon"></i>中2国語・古文入門
+                </h5>
+                <p class="card-text">古文の文法と語彙を基礎から。名作で学ぶ古文の世界！</p>
+              </div>
+              <span class="badge badge-level badge-intermediate">中級</span>
+            </div>
+            <div class="row text-muted mb-3">
+              <div class="col-auto"><i class="bi bi-clock me-1 info-icon"></i>45日間</div>
+              <div class="col-auto"><i class="bi bi-journal-text me-1 info-icon"></i>22レッスン</div>
+              <div class="col-auto"><i class="bi bi-trophy me-1 info-icon"></i>4つの修了証</div>
+            </div>
+            <div class="progress" style="height: 8px;">
+              <div class="progress-bar bg-warning" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">90%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 数学関数 -->
+    <div class="card course-card mb-4">
+      <div class="row g-0 align-items-center">
+        <div class="col-md-2">
+          <img src="/api/placeholder/200/200" class="img-fluid rounded-start" alt="中3数学関数">
+        </div>
+        <div class="col-md-10">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <div>
+                <h5 class="card-title mb-1">
+                  <i class="bi bi-graph-up me-2 course-icon"></i>中3数学・関数徹底演習
+                </h5>
+                <p class="card-text">2次関数をマスター！グラフの特徴から応用問題まで完全理解</p>
+              </div>
+              <span class="badge badge-level badge-advanced">上級</span>
+            </div>
+            <div class="row text-muted mb-3">
+              <div class="col-auto"><i class="bi bi-clock me-1 info-icon"></i>55日間</div>
+              <div class="col-auto"><i class="bi bi-journal-text me-1 info-icon"></i>32レッスン</div>
+              <div class="col-auto"><i class="bi bi-trophy me-1 info-icon"></i>6つの修了証</div>
+            </div>
+            <div class="progress" style="height: 8px;">
+              <div class="progress-bar " role="progressbar" style="width: 5%;" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100">5%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

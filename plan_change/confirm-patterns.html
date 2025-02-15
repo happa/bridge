@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ja">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>プラン変更の確認</title>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+      <style>
+         /* Custom styles */
+         .progress {
+         height: 4px;
+         }
+         .progress-step {
+         position: relative;
+         z-index: 1;
+         }
+         .progress-step-active {
+         color: #2563eb;
+         font-weight: bold;
+         }
+         .step-circle {
+         width: 40px;
+         height: 40px;
+         border-radius: 50%;
+         background-color: #e2e8f0;
+         color: #64748b;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         font-weight: bold;
+         }
+         .step-circle-active {
+         background-color: #2563eb;
+         color: white;
+         }
+         .step-circle-complete {
+         background-color: #2563eb;
+         }
+         .step-circle-complete::after {
+         content: "✓";
+         color: white;
+         }
+         .plan-change-arrow {
+         width: 40px;
+         height: 40px;
+         background-color: #2563eb;
+         border-radius: 50%;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         color: white;
+         font-size: 1.5rem;
+         }
+         .price-alert {
+         background-color: #fef2f2;
+         color: #991b1b;
+         padding: 0.5rem 1rem;
+         border-radius: 0.25rem;
+         font-size: 0.875rem;
+         }
+      </style>
+   </head>
+   <body class="bg-light">
+      <!-- Header -->
+      <header class="bg-white border-bottom">
+         <div class="container">
+            <div class="py-3">
+               <h1 class="h5 mb-0 fw-bold">プラン変更の確認</h1>
+            </div>
+         </div>
+      </header>
+      <!-- Progress bar -->
+      <div class="progress rounded-0">
+         <div class="progress-bar bg-primary" style="width: 33%"></div>
+      </div>
+      <!-- Progress steps -->
+      <div class="container mt-4">
+         <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8">
+               <div class="d-flex justify-content-between">
+                  <div class="progress-step text-center">
+                     <div class="step-circle step-circle-active mx-auto">1</div>
+                     <small class="d-block mt-2 progress-step-active">プランの確認</small>
+                  </div>
+                  <div class="progress-step text-center">
+                     <div class="step-circle mx-auto">2</div>
+                     <small class="d-block mt-2 text-secondary">お支払い</small>
+                  </div>
+                  <div class="progress-step text-center">
+                     <div class="step-circle mx-auto">3</div>
+                     <small class="d-block mt-2 text-secondary">完了</small>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Main content -->
+      <div class="container my-4">
+         <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8">
+               <h2 class="my-5">Pattern1：トライアル期間でのプラン変更</h2>
+               <p>
+                  トライアル期間の場合は問題なくプラン変更できる。
+               </p>
+               <!-- Current plan -->
+               <div class="card mb-4">
+                  <div class="row">
+                     <div class="col-md-5">
+                        <img src="t-eks.png" class="img-fluid">
+                     </div>
+                     <div class="col-md-7">
+                        <div class="card-body">
+                           <h2 class="h6 fw-bold mb-4">現在のプラン</h2>
+                           <h3 class="h5 fw-bold">英数国完成コース</h3>
+                           <p class="text-secondary mb-2">トライアル: 2025/03/31まで0円</p>
+                           <p class="text-secondary mb-2">契約更新日: 2025/04/01</p>
+                           <p class="text-secondary">月額料金: ¥16,500</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- Change arrow -->
+               <div class="text-center my-4">
+                  <div class="plan-change-arrow mx-auto">
+                     ↓
+                  </div>
+               </div>
+               <!-- New plan -->
+               <div class="card mb-4 border-primary">
+                  <div class="row">
+                     <div class="col-md-5">
+                        <img src="t-e.png" class="img-fluid">
+                     </div>
+                     <div class="col-md-7">
+                        <div class="card-body">
+                           <div class="card-body">
+                              <h2 class="h6 fw-bold mb-4">変更後のプラン</h2>
+                              <h3 class="h5 fw-bold">英語完成コース</h3>
+                              <p class="text-secondary mb-2">トライアル: 2025/03/31まで0円</p>
+                              <p class="text-secondary mb-2">契約更新日: 2025/04/01</p>
+                              <p class="text-secondary mb-4">月額料金: ¥9,800</p>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- Terms -->
+               <div class="card bg-light border mb-4">
+                  <div class="card-body">
+                     <h2 class="h6 fw-bold mb-3">プラン変更に関する注意事項</h2>
+                     <ul class="text-secondary small mb-0 ps-3">
+                        <li class="mb-2">プラン変更は即時反映されます</li>
+                        <li class="mb-2">プラン変更後の料金が適応されます</li>
+                        <li>契約更新日は変更されません</li>
+                     </ul>
+                  </div>
+               </div>
+               <h2 class="my-5">Pattern2：途中でプラン変更（アップグレード）</h2>
+               <p>
+                  現在：2025-04-15、現在英語完成コース9900円を受講中だが、英数国完成コース16500円に途中で変更する。
+                  4/1が決済日でそこから15日が経過している場合、現在のプランで支払った15日分を変更後のプランから引いた額を請求する。
+               </p>
+               <!-- Current plan -->
+               <div class="card mb-4">
+                  <div class="row">
+                     <div class="col-md-5">
+                        <img src="t-e.png" class="img-fluid">
+                     </div>
+                     <div class="col-md-7">
+                        <div class="card-body">
+                           <h2 class="h6 fw-bold mb-4">現在のプラン</h2>
+                           <h3 class="h5 fw-bold">英語完成コース</h3>
+                           <p class="text-secondary mb-2">契約更新日: 2025/05/01</p>
+                           <p class="text-secondary mb-4">月額料金: ¥9,800</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- Change arrow -->
+               <div class="text-center my-4">
+                  <div class="plan-change-arrow mx-auto">
+                     ↓
+                  </div>
+               </div>
+               <!-- New plan -->
+               <div class="card mb-4 border-primary">
+                  <div class="row">
+                     <div class="col-md-5">
+                        <img src="t-eks.png" class="img-fluid">
+                     </div>
+                     <div class="col-md-7">
+                        <div class="card-body">
+                           <div class="card-body">
+                              <h2 class="h6 fw-bold mb-4">変更後のプラン</h2>
+                              <h3 class="h5 fw-bold">英数国完成コース</h3>
+                              <p class="text-secondary mb-2">契約更新日: 2025/05/01</p>
+                              <p class="text-secondary">月額料金: ¥16,500</p>
+                              <div class="price-alert">
+                                 当月残り16日分の日割り差額3,573円がかかります。5/1以降は新プラン月額16,500円が適用されます。
+                                 <!-- data-bs-html="true" を指定してHTMLタグ（改行）も有効に -->
+                                 <a href="#"
+                                    data-bs-toggle="popover"
+                                    data-bs-trigger="click"
+                                    data-bs-placement="bottom"
+                                    data-bs-html="true"
+                                    data-bs-title="4/15アップグレード時の料金計算内訳"
+                                    data-bs-content="
+                                    旧プラン（月額9,800円）の1日あたりの料金<br>
+                                    9,800円 ÷ 30日 ≒ 326.67円<br>
+                                    新プラン（月額16,500円）の1日あたりの料金<br>
+                                    16,500円 ÷ 30日 = 550円<br>
+                                    1日あたりの差額<br>
+                                    550円 － 326.67円 ≒ 223.33円<br>
+                                    追加料金の計算<br>
+                                    4月15日アップグレードの場合、4月15日～4月30日までの残り16日分が対象<br>
+                                    223.33円 × 16日 ≒ 3,573円
+                                    ">
+                                 詳しく
+                                 </a>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- Terms -->
+               <div class="card bg-light border mb-4">
+                  <div class="card-body">
+                     <h2 class="h6 fw-bold mb-3">プラン変更に関する注意事項</h2>
+                     <ul class="text-secondary small mb-0 ps-3">
+                        <li class="mb-2">プラン変更は即時反映されます</li>
+                        <li class="mb-2">プラン変更後の料金が適応されます</li>
+                        <li>契約更新日は変更されません</li>
+                     </ul>
+                  </div>
+               </div>
+               <!-- Action buttons -->
+               <div class="d-flex justify-content-between">
+                  <a href="plan-selection.html" class="btn btn-light border px-4">キャンセル</a>
+                  <a class="btn btn-primary px-4" href="payment-confirm.html">次へ進む</a>
+               </div>
+            </div>
+         </div>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+      <script>
+         // ページ内のすべてのポップオーバーを初期化し、クリック時のデフォルト動作を防止する
+         const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+         popoverTriggerList.forEach(popoverTriggerEl => {
+           popoverTriggerEl.addEventListener('click', function(event) {
+             event.preventDefault(); // リンクのデフォルト動作（ページスクロール）を防止
+           });
+           new bootstrap.Popover(popoverTriggerEl);
+         });
+      </script>
+</html>

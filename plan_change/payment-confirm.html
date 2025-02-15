@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お支払い情報の確認</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        /* Custom styles */
+        .progress {
+            height: 4px;
+        }
+        .progress-step {
+            position: relative;
+            z-index: 1;
+        }
+        .progress-step-active {
+            color: #2563eb;
+            font-weight: bold;
+        }
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #e2e8f0;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .step-circle-active {
+            background-color: #2563eb;
+            color: white;
+        }
+        .step-circle-complete {
+            background-color: #2563eb;
+        }
+        .step-circle-complete::after {
+            content: "✓";
+            color: white;
+        }
+        .card-payment {
+            background-color: #f8fafc;
+            border: none;
+        }
+        .billing-details dt {
+            color: #64748b;
+            font-weight: normal;
+        }
+        .billing-details dd {
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        .next-payment-alert {
+            background-color: #f0f9ff;
+            border: 1px solid #e0f2fe;
+            color: #0369a1;
+        }
+        .secure-payment {
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <!-- Header -->
+    <header class="bg-white border-bottom">
+        <div class="container">
+            <div class="py-3">
+                <h1 class="h5 mb-0 fw-bold">お支払い情報の確認</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- Progress bar -->
+    <div class="progress rounded-0">
+        <div class="progress-bar bg-primary" style="width: 66%"></div>
+    </div>
+
+    <!-- Progress steps -->
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8">
+                <div class="d-flex justify-content-between">
+                    <div class="progress-step text-center">
+                        <div class="step-circle step-circle-complete mx-auto"></div>
+                        <small class="d-block mt-2 text-primary">プランの確認</small>
+                    </div>
+                    <div class="progress-step text-center">
+                        <div class="step-circle step-circle-active mx-auto">2</div>
+                        <small class="d-block mt-2 progress-step-active">お支払い</small>
+                    </div>
+                    <div class="progress-step text-center">
+                        <div class="step-circle mx-auto">3</div>
+                        <small class="d-block mt-2 text-secondary">完了</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="container my-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8">
+                <!-- Payment method -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="h6 fw-bold mb-4">お支払い方法</h2>
+                        <div class="card card-payment">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <p class="text-secondary mb-2">クレジットカード</p>
+                                        <p class="fw-bold mb-0">**** **** **** 1234</p>
+                                        <p class="text-secondary small mb-0">有効期限: 09/25</p>
+                                    </div>
+                                    <a href="#" class="text-primary text-decoration-none">カードを変更する</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Billing details -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="h6 fw-bold mb-4">お支払い内容</h2>
+                        <dl class="billing-details mb-4">
+                            <dt>現在のプラン<br><small class="text-secondary">契約更新日: 2025/05/01</small></dt>
+                            <dd class="text-end">
+                                英語完成コース<br>
+                                <span class="fw-bold">月額: ¥9,800</span>
+                            </dd>
+                            
+                            <dt class="mt-3">変更後のプラン<br><small class="text-secondary">契約更新日: 2025/05/01</small></dt>
+                            <dd class="text-end">
+                                英数国完成コース<br>
+                                <span class="fw-bold">月額: ¥16,500</span>
+                            </dd>
+                            
+                            <dt class="mt-3">当月日割り差額</dt>
+                            <dd class="text-end">
+                                ¥3,573 <small class="text-secondary">(当月残り16日分)</small>
+                            </dd>
+                        </dl>
+
+                        <hr class="my-4">
+
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3 class="h6 fw-bold mb-0">次回のお支払い額</h3>
+                            <p class="h5 fw-bold mb-0">¥16,500</p>
+                        </div>
+
+                        <div class="next-payment-alert rounded p-3">
+                            <i class="bi bi-calendar me-2"></i>
+                            次回請求日: 2025/05/01
+                        </div>
+
+                        <div class="mt-3 text-end">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#upgradeDetailsModal" class="text-primary text-decoration-none">詳しく</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Terms -->
+                <div class="card bg-light border mb-4">
+                    <div class="card-body">
+                        <ul class="text-secondary mb-0 ps-3">
+                            <li class="mb-2">アップグレードは4/15に適用されます。</li>
+                            <li class="mb-2">当月残り16日分の日割り差額 ¥3,573 が即時請求されます。</li>
+                            <li>5/1以降は新プラン月額 ¥16,500 が適用されます。</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Action buttons -->
+                <div class="d-flex justify-content-between align-items-center">
+                    <a class="btn btn-light border px-4" href="plan-confirm.html">前に戻る</a>
+                    <div class="text-end">
+                        <a class="btn btn-primary px-4" href="completion.html">変更を確定する</a>
+                        <div class="secure-payment mt-2">
+                            <i class="bi bi-lock-fill me-1"></i>
+                            セキュアな支払い処理
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upgrade Details Modal -->
+    <div class="modal fade" id="upgradeDetailsModal" tabindex="-1" aria-labelledby="upgradeDetailsModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="upgradeDetailsModalLabel">アップグレード料金の計算内訳</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+          </div>
+          <div class="modal-body">
+            <p>4月15日にアップグレードされる場合の料金計算は以下の通りです。</p>
+            <ol>
+                <li><strong>旧プラン（月額¥9,800）の1日あたりの料金：</strong>9,800円 ÷ 30日 ≒ <strong>326.67円</strong></li>
+                <li><strong>新プラン（月額¥16,500）の1日あたりの料金：</strong>16,500円 ÷ 30日 = <strong>550円</strong></li>
+                <li><strong>1日あたりの差額：</strong>550円 - 326.67円 ≒ <strong>223.33円</strong></li>
+                <li><strong>当月残りの日数：</strong>4月15日～4月30日 = <strong>16日</strong></li>
+                <li><strong>追加料金：</strong>223.33円 × 16日 ≒ <strong>3,573円</strong></li>
+            </ol>
+            <p>したがって、4月15日にアップグレードされると、当月の残り16日分の追加料金として約 <strong>3,573円</strong> が即時請求され、5月1日以降は新プラン（月額¥16,500）が適用されます。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
