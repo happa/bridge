@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>面談予約システム - 面談フィードバック</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- サイドバー -->
+      <div class="col-md-2 d-none d-md-block sidebar py-3">
+        <div class="text-center mb-4">
+          <h5>面談予約システム</h5>
+          <p class="text-muted small">生徒パネル</p>
+        </div>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" href="dashboard.html">
+              <i class="fas fa-tachometer-alt me-2"></i>ダッシュボード
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="teachers.html">
+              <i class="fas fa-chalkboard-teacher me-2"></i>先生を探す
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="appointments.html">
+              <i class="fas fa-calendar-check me-2"></i>予約一覧
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="tickets.html">
+              <i class="fas fa-ticket-alt me-2"></i>面談チケット
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="history.html">
+              <i class="fas fa-history me-2"></i>過去の面談
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="settings.html">
+              <i class="fas fa-cog me-2"></i>設定
+            </a>
+          </li>
+          <li class="nav-item mt-5">
+            <a class="nav-link text-danger" href="#">
+              <i class="fas fa-sign-out-alt me-2"></i>ログアウト
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- メインコンテンツ：フィードバックフォーム -->
+      <div class="col-md-10 ms-auto">
+        <!-- ヘッダー -->
+        <div class="row py-3 border-bottom">
+          <div class="col d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">面談フィードバック：鈴木先生（英語）</h4>
+            <button class="btn btn-outline-secondary" onclick="window.history.back()">戻る</button>
+          </div>
+        </div>
+        <div class="p-3">
+          <div class="card mb-4">
+            <div class="card-header bg-light">
+              <h6 class="mb-0">面談の評価とフィードバック</h6>
+            </div>
+            <div class="card-body">
+              <form>
+                <div class="mb-3">
+                  <label class="form-label">総合評価</label>
+                  <div class="rating-select">
+                    <div class="btn-group" role="group">
+                      <input type="radio" class="btn-check" name="rating" id="star1" autocomplete="off">
+                      <label class="btn btn-outline-warning" for="star1">★</label>
+                      <input type="radio" class="btn-check" name="rating" id="star2" autocomplete="off">
+                      <label class="btn btn-outline-warning" for="star2">★★</label>
+                      <input type="radio" class="btn-check" name="rating" id="star3" autocomplete="off">
+                      <label class="btn btn-outline-warning" for="star3">★★★</label>
+                      <input type="radio" class="btn-check" name="rating" id="star4" autocomplete="off">
+                      <label class="btn btn-outline-warning" for="star4">★★★★</label>
+                      <input type="radio" class="btn-check" name="rating" id="star5" autocomplete="off" checked>
+                      <label class="btn btn-outline-warning" for="star5">★★★★★</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">良かった点</label>
+                  <textarea class="form-control" rows="3" placeholder="先生の説明で良かった点、役に立った点など"></textarea>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">改善点・要望</label>
+                  <textarea class="form-control" rows="3" placeholder="改善してほしい点、次回お願いしたいことなど"></textarea>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">今回の面談で学んだこと</label>
+                  <textarea class="form-control" rows="3" placeholder="面談で学んだ内容、気づいたことなど"></textarea>
+                </div>
+                <div class="mb-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="nextAppointment" checked>
+                    <label class="form-check-label" for="nextAppointment">
+                      次回の面談も同じ先生にお願いしたい
+                    </label>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary">送信する</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>面談予約システム - 面談室</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- サイドバー -->
+      <div class="col-md-2 d-none d-md-block sidebar py-3">
+        <div class="text-center mb-4">
+          <h5>面談予約システム</h5>
+          <p class="text-muted small">生徒パネル</p>
+        </div>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" href="dashboard.html">
+              <i class="fas fa-tachometer-alt me-2"></i>ダッシュボード
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="teachers.html">
+              <i class="fas fa-chalkboard-teacher me-2"></i>先生を探す
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="appointments.html">
+              <i class="fas fa-calendar-check me-2"></i>予約一覧
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="tickets.html">
+              <i class="fas fa-ticket-alt me-2"></i>面談チケット
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="history.html">
+              <i class="fas fa-history me-2"></i>過去の面談
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="settings.html">
+              <i class="fas fa-cog me-2"></i>設定
+            </a>
+          </li>
+          <li class="nav-item mt-5">
+            <a class="nav-link text-danger" href="#">
+              <i class="fas fa-sign-out-alt me-2"></i>ログアウト
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- メインコンテンツ：面談室 -->
+      <div class="col-md-10 ms-auto">
+        <!-- ヘッダー -->
+        <div class="row py-3 border-bottom">
+          <div class="col d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">テストミーティング</h4>
+            <button class="btn btn-outline-secondary" onclick="window.history.back()">戻る</button>
+          </div>
+        </div>
+        <div id="jicoo-meeting-room" class="p-3">
+          <div class="jicoo-meeting-container">
+            <div class="jicoo-meeting-header d-flex justify-content-between align-items-center">
+              <div>
+                <h5 class="mb-1">テストミーティング</h5>
+                <p class="mb-0 text-muted">鈴木先生（英語）| 英作文の添削</p>
+              </div>
+              <button class="btn btn-outline-secondary" onclick="window.history.back()">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            <div class="jicoo-meeting-body">
+              <div class="jicoo-meeting-left">
+                <p class="mb-3"><i class="far fa-clock me-2"></i>2024年5月3日(金) 16:00-16:30</p>
+                <div class="d-grid mb-4">
+                  <a href="https://zoom.us/j/1234567890?pwd=abcdefg" target="_blank" class="btn btn-primary jicoo-join-btn">
+                    <i class="fas fa-video me-2"></i>Zoomに参加
+                  </a>
+                </div>
+                <div class="mb-4">
+                  <h6>参加情報</h6>
+                  <div class="d-flex align-items-center mb-2">
+                    <div style="width: 25px;"><i class="fas fa-user"></i></div>
+                    <div>山田太郎</div>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <div style="width: 25px;"><i class="fas fa-envelope"></i></div>
+                    <div>yamada@example.com</div>
+                  </div>
+                </div>
+                <div class="mb-4">
+                  <h6>面談情報</h6>
+                  <div class="mb-2">
+                    <p class="mb-0"><strong>内容：</strong>英作文の添削</p>
+                  </div>
+                  <div class="mb-2">
+                    <p class="mb-0"><strong>ステータス：</strong><span class="badge bg-success">進行中</span></p>
+                  </div>
+                  <div class="mb-2">
+                    <p class="mb-0"><strong>チケット：</strong><span class="badge bg-purple"><i class="fas fa-ticket-alt me-1"></i>1枚</span></p>
+                  </div>
+                  <div class="mb-2">
+                    <p class="mb-0"><strong>残り時間：</strong><span class="countdown" id="jicoo-countdown">27:35</span></p>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <h6>添付資料</h6>
+                  <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                      <div><i class="fas fa-file-alt me-2"></i>英作文課題.pdf</div>
+                      <i class="fas fa-download"></i>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                      <div><i class="fas fa-file-alt me-2"></i>添削済み英作文.pdf</div>
+                      <i class="fas fa-download"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="jicoo-meeting-right">
+                <ul class="nav nav-tabs jicoo-meeting-tabs mb-3">
+                  <li class="nav-item">
+                    <a class="nav-link active" href="#messages" data-bs-toggle="tab">メッセージ</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#notes" data-bs-toggle="tab">メモ</a>
+                  </li>
+                </ul>
+                <div class="tab-content">
+                  <div class="tab-pane fade show active" id="messages">
+                    <div class="jicoo-message-container">
+                      <div class="system-message">
+                        <i class="fas fa-info-circle me-1"></i>
+                        予約ページから予定が作成されました。こちらからメッセージを送信できます。
+                      </div>
+                      <div class="d-flex jicoo-message">
+                        <div class="message-avatar">
+                          <img src="https://via.placeholder.com/36" alt="User avatar" width="36" height="36">
+                        </div>
+                        <div class="flex-grow-1">
+                          <div class="d-flex justify-content-between align-items-center mb-1">
+                            <div>鈴木先生</div>
+                            <small class="text-muted">2024年5月3日 15:40</small>
+                          </div>
+                          <div class="message-content">
+                            <p class="mb-0">こんにちは、山田さん。今日は英作文の添削を行います。</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="d-flex jicoo-message">
+                        <div class="message-avatar">
+                          <img src="https://via.placeholder.com/36?text=Z" alt="Zoom avatar" width="36" height="36">
+                        </div>
+                        <div class="flex-grow-1">
+                          <div class="d-flex justify-content-between align-items-center mb-1">
+                            <div>Zoom</div>
+                            <small class="text-muted">2024年5月3日 15:50</small>
+                          </div>
+                          <div class="message-content">
+                            <p class="mb-0">Zoomでミーティングを作成しました</p>
+                            <p class="mb-0 mt-2">鈴木先生（英語）| 英作文の添削</p>
+                            <p class="mb-0">Zoom Meeting Id</p>
+                            <div class="mt-2">
+                              <a href="https://zoom.us/j/1234567890?pwd=abcdefg" target="_blank" class="btn btn-primary btn-sm">参加する</a>
+                              <button class="btn btn-outline-primary btn-sm">共有 <i class="fas fa-caret-down"></i></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <textarea class="jicoo-message-input" placeholder="メッセージを入力..."></textarea>
+                    <div class="jicoo-toolbar">
+                      <div>
+                        <button class="btn btn-light btn-sm me-1"><i class="fas fa-bold"></i></button>
+                        <button class="btn btn-light btn-sm me-1"><i class="fas fa-italic"></i></button>
+                        <button class="btn btn-light btn-sm me-1"><i class="fas fa-link"></i></button>
+                        <button class="btn btn-light btn-sm"><i class="fas fa-paperclip"></i></button>
+                      </div>
+                      <div class="d-flex align-items-center">
+                        <div class="form-check me-3">
+                          <input class="form-check-input" type="checkbox" id="email-notify">
+                          <label class="form-check-label" for="email-notify">
+                            メールも送信
+                          </label>
+                        </div>
+                        <button class="btn btn-primary">送信</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade" id="notes">
+                    <form>
+                      <div class="mb-3">
+                        <label class="form-label">メモ（自分用）</label>
+                        <textarea class="form-control" rows="10" placeholder="面談中のメモを入力..."></textarea>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">質問リスト</label>
+                        <textarea class="form-control" rows="5" placeholder="質問したいことをリストアップ..."></textarea>
+                      </div>
+                      <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary">保存</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- end p-3 -->
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

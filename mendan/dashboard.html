@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>面談予約システム - 生徒パネル - ダッシュボード</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <!-- Stripe JS -->
+  <script src="https://js.stripe.com/v3/"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- サイドバー -->
+      <div class="col-md-2 d-none d-md-block sidebar py-3">
+        <div class="text-center mb-4">
+          <h5>面談予約システム</h5>
+          <p class="text-muted small">生徒パネル</p>
+        </div>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" id="dashboard-tab" href="dashboard.html">
+              <i class="fas fa-tachometer-alt me-2"></i>ダッシュボード
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="teachers-tab" href="teachers.html">
+              <i class="fas fa-chalkboard-teacher me-2"></i>先生を探す
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="appointments-tab" href="appointments.html">
+              <i class="fas fa-calendar-check me-2"></i>予約一覧
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="tickets-tab" href="tickets.html">
+              <i class="fas fa-ticket-alt me-2"></i>面談チケット
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="history-tab" href="history.html">
+              <i class="fas fa-history me-2"></i>過去の面談
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="settings-tab" href="settings.html">
+              <i class="fas fa-cog me-2"></i>設定
+            </a>
+          </li>
+          <li class="nav-item mt-5">
+            <a class="nav-link text-danger" href="#">
+              <i class="fas fa-sign-out-alt me-2"></i>ログアウト
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- メインコンテンツ -->
+      <div class="col-md-10 ms-auto">
+        <!-- ヘッダー -->
+        <div class="row py-3 border-bottom">
+          <div class="col d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">生徒パネル</h4>
+            <div class="d-flex align-items-center">
+              <div class="me-4">
+                <span class="ticket-badge bg-primary text-white">
+                  <i class="fas fa-ticket-alt me-2"></i>面談チケット: 3枚
+                </span>
+                <a href="tickets.html" class="btn btn-sm btn-outline-primary">
+                  <i class="fas fa-plus-circle me-1"></i>購入
+                </a>
+              </div>
+              <div class="dropdown">
+                <button class="btn btn-light dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fas fa-user-circle me-2"></i>山田太郎
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                  <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>プロフィール</a></li>
+                  <li><a class="dropdown-item" href="tickets.html"><i class="fas fa-ticket-alt me-2"></i>面談チケット</a></li>
+                  <li><a class="dropdown-item" href="settings.html"><i class="fas fa-cog me-2"></i>アカウント設定</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-sign-out-alt me-2"></i>ログアウト</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ダッシュボード本体 -->
+        <div id="main-dashboard" class="p-3">
+          <div class="row align-items-center mb-4">
+            <div class="col">
+              <h5 class="mb-0">予約状況</h5>
+            </div>
+            <div class="col-auto">
+              <div class="d-flex align-items-center">
+                <span class="badge bg-primary text-white p-2 me-2">
+                  <i class="fas fa-ticket-alt me-1"></i>面談チケット: 3枚
+                </span>
+                <a href="tickets.html" class="btn btn-sm btn-outline-primary">
+                  <i class="fas fa-plus-circle me-1"></i>チケット購入
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="card-counter bg-primary">
+                <i class="fas fa-calendar-check"></i>
+                <span class="count-numbers">3</span>
+                <span class="count-name">今後の予約</span>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card-counter bg-success">
+                <i class="fas fa-calendar-alt"></i>
+                <span class="count-numbers">1</span>
+                <span class="count-name">本日の予約</span>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card-counter bg-info">
+                <i class="fas fa-comments"></i>
+                <span class="count-numbers">12</span>
+                <span class="count-name">完了面談</span>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card-counter bg-purple">
+                <i class="fas fa-ticket-alt"></i>
+                <span class="count-numbers">3</span>
+                <span class="count-name">残りチケット</span>
+              </div>
+            </div>
+          </div>
+          <!-- 予約一覧・最近の面談・お知らせ（サンプル） -->
+          <div class="row mt-4">
+            <div class="col-md-6">
+              <div class="card mb-4">
+                <div class="card-header bg-light">
+                  <h6 class="mb-0">今後の予約</h6>
+                </div>
+                <div class="card-body p-0">
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div>
+                        <h6 class="mb-0">田中先生（英語）</h6>
+                        <small class="text-muted">5/1 15:00-15:30</small>
+                        <p class="small mb-0">英語の文法について</p>
+                      </div>
+                      <div>
+                        <span class="badge bg-warning text-dark">承認待ち</span>
+                        <a href="appointment-detail.html?teacher=tanaka" class="btn btn-sm btn-outline-secondary ms-2">
+                          <i class="fas fa-eye"></i>
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card mb-4">
+                <div class="card-header bg-light">
+                  <h6 class="mb-0">最近の面談</h6>
+                </div>
+                <div class="card-body p-0">
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div>
+                        <h6 class="mb-0">高橋先生（英語）</h6>
+                        <small class="text-muted">4/25 15:00-15:30</small>
+                        <p class="small mb-0">TOEIC対策</p>
+                      </div>
+                      <div class="d-flex align-items-center">
+                        <div class="rating me-2">★★★★★</div>
+                        <a href="appointment-detail.html?teacher=takahashi" class="btn btn-sm btn-outline-secondary">
+                          <i class="fas fa-eye"></i>
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header bg-light">
+                  <h6 class="mb-0">お知らせ</h6>
+                </div>
+                <div class="card-body p-0">
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                      <div class="d-flex justify-content-between">
+                        <h6 class="mb-0">ゴールデンウィーク特別クーポン配布中！</h6>
+                        <small class="text-muted">2024/4/30</small>
+                      </div>
+                      <p class="mb-1">クーポンコード「GW2024」をご利用ください。</p>
+                      <div>
+                        <a href="tickets.html" class="btn btn-sm btn-outline-primary">
+                          <i class="fas fa-ticket-alt me-1"></i>チケットを購入する
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- end main-dashboard -->
+      </div>
+    </div>
+  </div>
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JS -->
+  <script src="script.js"></script>
+</body>
+</html>
