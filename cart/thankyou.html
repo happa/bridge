@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ご購入ありがとうございました - Udemy Clone</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="header.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f7f9fa;
+    }
+    .rating-stars {
+      color: #f4c150;
+    }
+    .bg-light-blue {
+      background-color: #f0f7f8;
+    }
+    .cart-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      font-size: 0.7rem;
+    }
+    .udemy-logo {
+      height: 34px;
+    }
+    .bestseller-badge {
+      background-color: #eceb98;
+      color: #3d3c0a;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+    }
+    .success-icon {
+      color: #3cb371;
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+    .thank-you-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 15px;
+    }
+    .thank-you-card {
+      background-color: #fff;
+      border-radius: 6px;
+      padding: 40px;
+      margin-bottom: 30px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+    .course-card {
+      transition: all 0.3s;
+      height: 100%;
+      background-color: #fff;
+      border-radius: 6px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+    .course-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    .course-image {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+    .start-course-btn {
+      background-color: #5624d0;
+      border-color: #5624d0;
+      font-weight: bold;
+      padding: 12px 20px;
+    }
+    .start-course-btn:hover {
+      background-color: #401b9c;
+      border-color: #401b9c;
+    }
+    .order-details {
+      margin-top: 24px;
+      padding: 20px;
+      background-color: #f7f9fa;
+      border-radius: 4px;
+    }
+    .order-item {
+      padding: 16px 0;
+      border-bottom: 1px solid #e6e9ec;
+    }
+    .order-item:last-child {
+      border-bottom: none;
+    }
+    .order-total {
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    .receipt-link {
+      color: #5624d0;
+      text-decoration: none;
+    }
+    .receipt-link:hover {
+      text-decoration: underline;
+    }
+    .courses-heading {
+      margin-top: 40px;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+    .course-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #1c1d1f;
+      margin: 0.5rem 0;
+    }
+    
+    /* レスポンシブ調整 */
+    @media (max-width: 768px) {
+      .thank-you-card {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 共通ヘッダー -->
+  <header class="site-header">
+    <div class="announcement-bar">
+      2025年度 入試対策講座の申込受付中！早期割引は6月末まで
+      <a href="#" class="announcement-link">詳細はこちら</a>
+    </div>
+    <nav class="navbar">
+      <div class="container">
+        <a href="/" class="navbar-brand d-flex align-items-center">
+          <span class="logo-text">Edbase</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="#">コース</a></li>
+          <li><a href="#">プラン</a></li>
+          <li><a href="#">大学情報</a></li>
+          <li><a href="#">合格体験記</a></li>
+          <li><a href="#">講師紹介</a></li>
+        </ul>
+        <div class="nav-actions">
+          <button class="icon-btn" aria-label="お気に入り"><i class="bi bi-heart"></i></button>
+          <button class="icon-btn cart-btn" aria-label="カート">
+            <i class="bi bi-cart"></i>
+            <span id="cart-count" class="cart-count">0</span>
+          </button>
+          <button class="icon-btn" aria-label="通知"><i class="bi bi-bell"></i></button>
+          <button class="icon-btn user-btn" aria-label="ユーザー">
+            <span class="user-initial">U</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <div class="thank-you-container">
+    <!-- サンクスカード -->
+    <div class="thank-you-card text-center">
+      <i class="bi bi-check-circle-fill success-icon"></i>
+      <h1 class="display-6 mb-3">ご購入ありがとうございました！</h1>
+      <p class="lead mb-4">注文処理が完了しました。購入したコースは「マイラーニング」からアクセスできます。</p>
+      <a href="#" class="btn btn-primary start-course-btn px-4">マイラーニングに進む</a>
+      
+      <!-- 注文詳細 -->
+      <div class="order-details mt-5 text-start">
+        <h2 class="h5 mb-3">注文詳細</h2>
+        <p class="mb-3">注文番号: <strong>UDM-20254983</strong> | 注文日: 2025年4月17日</p>
+        
+        <!-- 注文アイテム一覧 -->
+        <div class="order-item">
+          <div class="row">
+            <div class="col-md-8">
+              <p class="mb-1"><strong>【SAA-C03版】これだけでOK！AWS 認定ソリューションアーキテクト</strong></p>
+              <p class="text-muted small mb-0">講師: Shingo Shibata</p>
+            </div>
+            <div class="col-md-4 text-md-end">
+              <p class="mb-0">¥1,800</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="order-item">
+          <div class="row">
+            <div class="col-md-8">
+              <p class="mb-1"><strong>AWS：ゼロから実践するAmazon Web Services</strong></p>
+              <p class="text-muted small mb-0">講師: 山浦 清透</p>
+            </div>
+            <div class="col-md-4 text-md-end">
+              <p class="mb-0">¥2,200</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="order-item">
+          <div class="row">
+            <div class="col-md-8">
+              <p class="mb-1"><strong>【ベストセラー完全日本語化】AWS 認定ソリューションアーキテクト</strong></p>
+              <p class="text-muted small mb-0">講師: Stephane Maarek</p>
+            </div>
+            <div class="col-md-4 text-md-end">
+              <p class="mb-0">¥3,000</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="order-item">
+          <div class="row">
+            <div class="col-md-8">
+              <p class="mb-1"><strong>【AWS初心者向け】手を動かして身につける！実戦で役立つAWSサービス</strong></p>
+              <p class="text-muted small mb-0">講師: 株式会社サーバーワークス</p>
+            </div>
+            <div class="col-md-4 text-md-end">
+              <p class="mb-0">¥3,000</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="order-item">
+          <div class="row">
+            <div class="col-md-8">
+              <p class="mb-1"><strong>Ultimate AWS Certified Solutions Architect Associate 2025</strong></p>
+              <p class="text-muted small mb-0">講師: Stephane Maarek</p>
+            </div>
+            <div class="col-md-4 text-md-end">
+              <p class="mb-0">¥2,200</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 注文合計 -->
+        <div class="mt-3 pt-3 border-top">
+          <div class="row">
+            <div class="col-6">
+              <p class="mb-0">小計:</p>
+            </div>
+            <div class="col-6 text-end">
+              <p class="mb-0">¥104,000</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <p class="mb-0">割引:</p>
+            </div>
+            <div class="col-6 text-end">
+              <p class="mb-0">-¥91,800</p>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-6">
+              <p class="mb-0 order-total">合計:</p>
+            </div>
+            <div class="col-6 text-end">
+              <p class="mb-0 order-total">¥12,200</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 領収書リンク -->
+        <div class="text-center mt-4">
+          <a href="#" class="receipt-link"><i class="bi bi-download me-1"></i> 領収書をダウンロード</a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 購入したコース -->
+    <h2 class="courses-heading">購入したコース</h2>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-5 g-4 mb-5">
+      <!-- コース1 -->
+      <div class="col">
+        <div class="course-card">
+          <img src="seito.jpeg" class="course-image" alt="AWS認定ソリューションアーキテクト">
+          <div class="p-3">
+            <h3 class="course-title">【SAA-C03版】これだけでOK！AWS 認定ソリューションアーキテクト</h3>
+            <p class="text-muted small mb-3">講師: Shingo Shibata</p>
+            <button class="btn btn-primary w-100 start-btn">コースを始める</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- コース2 -->
+      <div class="col">
+        <div class="course-card">
+          <img src="seito.jpeg" class="course-image" alt="AWS：ゼロから実践">
+          <div class="p-3">
+            <h3 class="course-title">AWS：ゼロから実践するAmazon Web Services</h3>
+            <p class="text-muted small mb-3">講師: 山浦 清透</p>
+            <button class="btn btn-primary w-100 start-btn">コースを始める</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- コース3 -->
+      <div class="col">
+        <div class="course-card">
+          <img src="seito.jpeg" class="course-image" alt="AWS 認定ソリューションアーキテクト">
+          <div class="p-3">
+            <h3 class="course-title">【ベストセラー完全日本語化】AWS 認定ソリューションアーキテクト</h3>
+            <p class="text-muted small mb-3">講師: Stephane Maarek</p>
+            <button class="btn btn-primary w-100 start-btn">コースを始める</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- コース4 -->
+      <div class="col">
+        <div class="course-card">
+          <img src="seito.jpeg" class="course-image" alt="AWS初心者向け">
+          <div class="p-3">
+            <h3 class="course-title">【AWS初心者向け】手を動かして身につける！実戦で役立つAWSサービス</h3>
+            <p class="text-muted small mb-3">講師: 株式会社サーバーワークス</p>
+            <button class="btn btn-primary w-100 start-btn">コースを始める</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- コース5 -->
+      <div class="col">
+        <div class="course-card">
+          <img src="seito.jpeg" class="course-image" alt="Ultimate AWS Certified">
+          <div class="p-3">
+            <h3 class="course-title">Ultimate AWS Certified Solutions Architect Associate 2025</h3>
+            <p class="text-muted small mb-3">講師: Stephane Maarek</p>
+            <button class="btn btn-primary w-100 start-btn">コースを始める</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 次におすすめのアクション -->
+    <div class="row mb-5">
+      <div class="col-md-6 mb-4 mb-md-0">
+        <div class="card h-100">
+          <div class="card-body text-center p-4">
+            <i class="bi bi-journal-check fs-1 mb-3 text-primary"></i>
+            <h3 class="card-title h5 mb-3">学習目標を設定しましょう</h3>
+            <p class="card-text">学習計画を立てて、目標達成までのスケジュールを管理できます。</p>
+            <a href="#" class="btn btn-outline-primary">学習スケジュールを設定</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card h-100">
+          <div class="card-body text-center p-4">
+            <i class="bi bi-phone fs-1 mb-3 text-primary"></i>
+            <h3 class="card-title h5 mb-3">モバイルアプリをダウンロード</h3>
+            <p class="card-text">いつでもどこでも学習できるように、Udemyモバイルアプリをインストールしましょう。</p>
+            <div class="d-flex justify-content-center">
+              <a href="#" class="me-2"><img src="/api/placeholder/120/40" alt="App Store" height="40"></a>
+              <a href="#"><img src="/api/placeholder/120/40" alt="Google Play" height="40"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- カスタマーサポート情報 -->
+    <div class="text-center mb-5">
+      <h3 class="h5 mb-3">ご質問やサポートが必要ですか？</h3>
+      <p class="mb-3">何かご不明な点がございましたら、お気軽にカスタマーサポートまでお問い合わせください。</p>
+      <a href="#" class="btn btn-outline-dark">ヘルプセンター</a>
+    </div>
+  </div>
+
+  <!-- フッター（省略） -->
+
+  <!-- Bootstrap 5 JS with Popper -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // コースを始めるボタンのイベント
+      const startButtons = document.querySelectorAll('.start-btn');
+      startButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const courseTitle = this.closest('.course-card').querySelector('.course-title').textContent;
+          alert(`「${courseTitle}」の学習を開始します。素晴らしい学びの旅をお楽しみください！`);
+        });
+      });
+      
+      // マイラーニングボタン
+      const myLearningBtn = document.querySelector('.start-course-btn');
+      if (myLearningBtn) {
+        myLearningBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          alert('マイラーニングページに移動します。購入したすべてのコースはこちらからアクセスできます。');
+        });
+      }
+      
+      // 領収書ダウンロードリンク
+      const receiptLink = document.querySelector('.receipt-link');
+      if (receiptLink) {
+        receiptLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          alert('領収書のダウンロードを開始します。');
+        });
+      }
+      
+      // 現在の日付を設定
+      const today = new Date();
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      const dateString = today.toLocaleDateString('ja-JP', options);
+      
+      // 注文日の更新
+      const orderDate = document.querySelector('.order-details p');
+      if (orderDate) {
+        const orderNumber = orderDate.innerHTML.split('|')[0];
+        orderDate.innerHTML = `${orderNumber} | 注文日: ${dateString}`;
+      }
+    });
+  </script>
+</body>
+</html>

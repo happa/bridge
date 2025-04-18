@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ショッピングカート - Edbase</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="header.css" rel="stylesheet">
+  <style>
+    .course-card {
+      transition: all 0.3s;
+    }
+    .course-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    .rating-stars {
+      color: #f4c150;
+    }
+    .bg-light-blue {
+      background-color: #f0f7f8;
+    }
+    .cart-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      font-size: 0.7rem;
+    }
+    .udemy-logo {
+      height: 34px;
+    }
+    .bestseller-badge {
+      background-color: #eceb98;
+      color: #3d3c0a;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+    }
+    .remove-btn {
+      color: #5624d0;
+      border: none;
+      background: none;
+      padding: 0;
+      font-weight: bold;
+    }
+    .save-btn {
+      color: #5624d0;
+      border: none;
+      background: none;
+      padding: 0;
+    }
+    .course-image {
+      width: 130px;
+      height: 72px;
+      object-fit: cover;
+    }
+    .course-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #1c1d1f;
+      text-decoration: none;
+    }
+    .course-title:hover {
+      color: #5624d0;
+    }
+    .discount-badge {
+      background-color: #ebe8fc;
+      color: #5624d0;
+      font-weight: bold;
+      padding: 2px 8px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+    .original-price {
+      text-decoration: line-through;
+      color: #6a6f73;
+    }
+    .discounted-price {
+      font-weight: bold;
+      color: #5624d0;
+    }
+    .coupon-input {
+      border: 1px solid #d1d7dc;
+      border-radius: 4px;
+      height: 48px;
+    }
+    .apply-btn {
+      height: 48px;
+    }
+    .total-section {
+      background-color: #f7f9fa;
+      border-radius: 4px;
+      padding: 24px;
+    }
+    .checkout-btn {
+      height: 48px;
+      font-weight: bold;
+    }
+    .course-info {
+      font-size: 0.9rem;
+      color: #6a6f73;
+    }
+    .recommended-course {
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .recommended-course:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .recommended-img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+    }
+    
+    /* モバイル対応 */
+    @media (max-width: 768px) {
+      .course-image {
+        width: 100px;
+        height: 56px;
+      }
+      .course-title {
+        font-size: 0.9rem;
+      }
+      .course-info {
+        font-size: 0.8rem;
+      }
+      .btn {
+        font-size: 0.9rem;
+      }
+      .total-section {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 共通ヘッダー -->
+  <header class="site-header">
+    <div class="announcement-bar">
+      2025年度 入試対策講座の申込受付中！早期割引は6月末まで
+      <a href="#" class="announcement-link">詳細はこちら</a>
+    </div>
+    <nav class="navbar">
+      <div class="container">
+        <a href="/" class="navbar-brand d-flex align-items-center">
+          <span class="logo-text">Edbase</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="#">コース</a></li>
+          <li><a href="#">プラン</a></li>
+          <li><a href="#">大学情報</a></li>
+          <li><a href="#">合格体験記</a></li>
+          <li><a href="#">講師紹介</a></li>
+        </ul>
+        <div class="nav-actions">
+          <button class="icon-btn" aria-label="お気に入り"><i class="bi bi-heart"></i></button>
+          <button class="icon-btn cart-btn" aria-label="カート">
+            <i class="bi bi-cart"></i>
+            <span id="cart-count" class="cart-count">0</span>
+          </button>
+          <button class="icon-btn" aria-label="通知"><i class="bi bi-bell"></i></button>
+          <button class="icon-btn user-btn" aria-label="ユーザー">
+            <span class="user-initial">U</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <div class="container py-4">
+    <div class="row">
+      <!-- カート内商品リスト -->
+      <div class="col-lg-8">
+        <h1 class="h2 mb-4">ショッピングカート</h1>
+        <p class="mb-4">カートに5件のコースが入っています</p>
+        
+        <!-- カート内商品 -->
+        <div class="cart-items">
+          <!-- 商品1 -->
+          <div class="card mb-3 border-0 border-bottom">
+            <div class="row g-0 py-3">
+              <div class="col-md-2 col-3">
+                <img src="seito.jpeg" class="course-image rounded" alt="東京大学の徹底分析">
+              </div>
+              <div class="col-md-7 col-6">
+                <div class="card-body p-0 ps-md-3">
+                  <a href="course-detail.html" class="course-title mb-1 d-block">東京大学の徹底分析〜学部ごとの出題傾向を過去問で徹底分析〜</a>
+                  <p class="course-info mb-1">講師: 山田太郎 | 東京大学卒業生、受験対策専門家</p>
+                  <div class="d-flex align-items-center mb-1">
+                    <div class="bestseller-badge me-2">ベストセラー</div>
+                    <span class="fw-bold me-1">4.8</span>
+                    <div class="rating-stars me-1">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-half"></i>
+                    </div>
+                    <span class="course-info">(1,234件の評価)</span>
+                  </div>
+                  <p class="course-info mb-0">合計12時間 • レクチャー数: 50 • 初級</p>
+                </div>
+              </div>
+              <div class="col-md-3 col-3 text-end">
+                <div>
+                  <span class="discounted-price me-2">¥10,000</span>
+                  <span class="original-price">¥15,000</span>
+                </div>
+                <div class="mt-2">
+                  <button class="remove-btn mb-1 d-block ms-auto">削除</button>
+                  <button class="save-btn d-block ms-auto">とっておく</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 商品2 -->
+          <div class="card mb-3 border-0 border-bottom">
+            <div class="row g-0 py-3">
+              <div class="col-md-2 col-3">
+                <img src="seito.jpeg" class="course-image rounded" alt="東京大学 理科一類 数学対策">
+              </div>
+              <div class="col-md-7 col-6">
+                <div class="card-body p-0 ps-md-3">
+                  <a href="course-detail.html" class="course-title mb-1 d-block">東京大学 理科一類 数学対策</a>
+                  <p class="course-info mb-1">講師: 山田太郎 | 東京大学卒業生、受験対策専門家</p>
+                  <div class="d-flex align-items-center mb-1">
+                    <div class="bestseller-badge me-2">ベストセラー</div>
+                    <span class="fw-bold me-1">4.7</span>
+                    <div class="rating-stars me-1">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-half"></i>
+                    </div>
+                    <span class="course-info">(1,234件の評価)</span>
+                  </div>
+                  <p class="course-info mb-0">合計8時間 • レクチャー数: 30 • 中級</p>
+                </div>
+              </div>
+              <div class="col-md-3 col-3 text-end">
+                <div>
+                  <span class="discounted-price me-2">¥8,000</span>
+                  <span class="original-price">¥10,000</span>
+                </div>
+                <div class="mt-2">
+                  <button class="remove-btn mb-1 d-block ms-auto">削除</button>
+                  <button class="save-btn d-block ms-auto">とっておく</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 商品3 -->
+          <div class="card mb-3 border-0 border-bottom">
+            <div class="row g-0 py-3">
+              <div class="col-md-2 col-3">
+                <img src="seito.jpeg" class="course-image rounded" alt="東京大学 文科一類 国語対策">
+              </div>
+              <div class="col-md-7 col-6">
+                <div class="card-body p-0 ps-md-3">
+                  <a href="course-detail.html" class="course-title mb-1 d-block">東京大学 文科一類 国語対策</a>
+                  <p class="course-info mb-1">講師: 山田太郎 | 東京大学卒業生、受験対策専門家</p>
+                  <div class="d-flex align-items-center mb-1">
+                    <span class="fw-bold me-1">4.6</span>
+                    <div class="rating-stars me-1">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-half"></i>
+                    </div>
+                    <span class="course-info">(1,234件の評価)</span>
+                  </div>
+                  <p class="course-info mb-0">合計8時間 • レクチャー数: 30 • 中級</p>
+                </div>
+              </div>
+              <div class="col-md-3 col-3 text-end">
+                <div>
+                  <span class="discounted-price me-2">¥8,000</span>
+                  <span class="original-price">¥10,000</span>
+                </div>
+                <div class="mt-2">
+                  <button class="remove-btn mb domandò
+
+System: 1 d-block ms-auto">削除</button>
+                  <button class="save-btn d-block ms-auto">とっておく</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 商品4 -->
+          <div class="card mb-3 border-0 border-bottom">
+            <div class="row g-0 py-3">
+              <div class="col-md-2 col-3">
+                <img src="seito.jpeg" class="course-image rounded" alt="東京大学 英語対策">
+              </div>
+              <div class="col-md-7 col-6">
+                <div class="card-body p-0 ps-md-3">
+                  <a href="course-detail.html" class="course-title mb-1 d-block">東京大学 英語対策</a>
+                  <p class="course-info mb-1">講師: 山田太郎 | 東京大学卒業生、受験対策専門家</p>
+                  <div class="d-flex align-items-center mb-1">
+                    <span class="fw-bold me-1">4.5</span>
+                    <div class="rating-stars me-1">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-half"></i>
+                    </div>
+                    <span class="course-info">(1,234件の評価)</span>
+                  </div>
+                  <p class="course-info mb-0">合計8時間 • レクチャー数: 30 • 中級</p>
+                </div>
+              </div>
+              <div class="col-md-3 col-3 text-end">
+                <div>
+                  <span class="discounted-price me-2">¥8,000</span>
+                  <span class="original-price">¥10,000</span>
+                </div>
+                <div class="mt-2">
+                  <button class="remove-btn mb-1 d-block ms-auto">削除</button>
+                  <button class="save-btn d-block ms-auto">とっておく</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 商品5 -->
+          <div class="card mb-3 border-0 border-bottom">
+            <div class="row g-0 py-3">
+              <div class="col-md-2 col-3">
+                <img src="seito.jpeg" class="course-image rounded" alt="東京大学 模擬試験対策">
+              </div>
+              <div class="col-md-7 col-6">
+                <div class="card-body p-0 ps-md-3">
+                  <a href="course-detail.html" class="course-title mb-1 d-block">東京大学 模擬試験対策</a>
+                  <p class="course-info mb-1">講師: 山田太郎 | 東京大学卒業生、受験対策専門家</p>
+                  <div class="d-flex align-items-center mb-1">
+                    <div class="bestseller-badge me-2">ベストセラー</div>
+                    <span class="fw-bold me-1">4.7</span>
+                    <div class="rating-stars me-1">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-half"></i>
+                    </div>
+                    <span class="course-info">(1,234件の評価)</span>
+                  </div>
+                  <p class="course-info mb-0">合計10時間 • レクチャー数: 40 • すべてのレベル</p>
+                </div>
+              </div>
+              <div class="col-md-3 col-3 text-end">
+                <div>
+                  <span class="discounted-price me-2">¥10,000</span>
+                  <span class="original-price">¥15,000</span>
+                </div>
+                <div class="mt-2">
+                  <button class="remove-btn mb-1 d-block ms-auto">削除</button>
+                  <button class="save-btn d-block ms-auto">とっておく</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 合計とチェックアウト -->
+      <div class="col-lg-4">
+        <div class="total-section">
+          <h2 class="h5 mb-4">合計:</h2>
+          <div class="d-flex justify-content-between mb-2">
+            <span>小計:</span>
+            <span class="original-price">¥60,000</span>
+          </div>
+          <div class="d-flex justify-content-between mb-4">
+            <span>合計:</span>
+            <div>
+              <span class="h3 fw-bold">¥44,000</span>
+              <div class="discount-badge mt-1">27%OFF</div>
+            </div>
+          </div>
+          <a href="checkout.html" class="btn btn-primary w-100 checkout-btn mb-3">精算</a>
+          <p class="small text-center mb-0">30日間の返金保証付き</p>
+        </div>
+        
+        <!-- クーポン -->
+        <div class="mt-4">
+          <h3 class="h5 mb-3">プロモーション</h3>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control coupon-input" placeholder="クーポンを入力してください" value="EXAM2025">
+            <button class="btn btn-primary apply-btn" type="button">適用</button>
+          </div>
+          <div class="alert alert-success py-2 d-flex align-items-center" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            <div>
+              <small>EXAM2025が適用されました<br>受験生向けクーポン</small>
+            </div>
+            <button type="button" class="btn-close ms-auto" aria-label="Close"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- おすすめコース -->
+    <div class="mt-5">
+      <h2 class="h4 mb-4">あなたへのおすすめコース</h2>
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-5 g-4">
+        <!-- おすすめ1 -->
+        <div class="col">
+          <div class="card h-100 border-0 recommended-course">
+            <img src="seito.jpeg" class="card-img-top recommended-img" alt="おすすめコース">
+            <div class="card-body px-0">
+              <h5 class="card-title h6">東京大学 理科二類 物理対策</h5>
+              <p class="course-info mb-1">山田太郎</p>
+              <div class="d-flex align-items-center">
+                <span class="fw-bold me-1">4.6</span>
+                <div class="rating-stars me-1">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-half"></i>
+                </div>
+                <span class="course-info">(1,234)</span>
+              </div>
+              <div class="mt-1">
+                <span class="fw-bold">¥8,000</span>
+                <span class="original-price ms-1">¥10,000</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- おすすめ2 -->
+        <div class="col">
+          <div class="card h-100 border-0 recommended-course">
+            <img src="seito.jpeg" class="card-img-top recommended-img" alt="おすすめコース">
+            <div class="card-body px-0">
+              <h5 class="card-title h6">東京大学 文科二類 歴史対策</h5>
+              <p class="course-info mb-1">山田太郎</p>
+              <div class="d-flex align-items-center">
+                <span class="fw-bold me-1">4.7</span>
+                <div class="rating-stars me-1">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-half"></i>
+                </div>
+                <span class="course-info">(1,234)</span>
+              </div>
+              <div class="mt-1">
+                <span class="fw-bold">¥8,000</span>
+                <span class="original-price ms-1">¥10,000</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- おすすめ3 -->
+        <div class="col">
+          <div class="card h-100 border-0 recommended-course">
+            <img src="seito.jpeg" class="card-img-top recommended-img" alt="おすすめコース">
+            <div class="card-body px-0">
+              <h5 class="card-title h6">東京大学 化学対策</h5>
+              <p class="course-info mb-1">山田太郎</p>
+              <div class="d-flex align-items-center">
+                <span class="fw-bold me-1">4.5</span>
+                <div class="rating-stars me-1">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-half"></i>
+                </div>
+                <span class="course-info">(1,234)</span>
+              </div>
+              <div class="mt-1">
+                <span class="fw-bold">¥8,000</span>
+                <span class="original-price ms-1">¥10,000</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- おすすめ4 -->
+        <div class="col">
+          <div class="card h-100 border-0 recommended-course">
+            <img src="seito.jpeg" class="card-img-top recommended-img" alt="おすすめコース">
+            <div class="card-body px-0">
+              <h5 class="card-title h6">東京大学 学習計画作成講座</h5>
+              <p class="course-info mb-1">山田太郎</p>
+              <div class="d-flex align-items-center">
+                <span class="fw-bold me-1">4.8</span>
+                <div class="rating-stars me-1">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-half"></i>
+                </div>
+                <span class="course-info">(1,234)</span>
+              </div>
+              <div class="mt-1">
+                <span class="fw-bold">¥6,000</span>
+                <span class="original-price ms-1">¥8,000</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- おすすめ5 -->
+        <div class="col">
+          <div class="card h-100 border-0 recommended-course">
+            <img src="seito.jpeg" class="card-img-top recommended-img" alt="おすすめコース">
+            <div class="card-body px-0">
+              <h5 class="card-title h6">東京大学 二次試験対策</h5>
+              <p class="course-info mb-1">山田太郎</p>
+              <div class="d-flex align-items-center">
+                <span class="fw-bold me-1">4.7</span>
+                <div class="rating-stars me-1">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-half"></i>
+                </div>
+                <span class="course-info">(1,234)</span>
+              </div>
+              <div class="mt-1">
+                <span class="fw-bold">¥10,000</span>
+                <span class="original-price ms-1">¥15,000</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap 5 JS with Popper -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // カートの商品を削除する
+      const removeButtons = document.querySelectorAll('.remove-btn');
+      removeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const cartItem = this.closest('.card');
+          
+          // アニメーション効果を追加
+          cartItem.style.transition = 'all 0.3s';
+          cartItem.style.opacity = '0';
+          cartItem.style.transform = 'translateX(20px)';
+          
+          // アニメーション後に要素を削除
+          setTimeout(() => {
+            cartItem.remove();
+            
+            // カートに残っている商品数をカウント
+            const remainingItems = document.querySelectorAll('.cart-items .card').length;
+            
+            // カウンターを更新
+            const cartCounter = document.getElementById('cart-count');
+            if (cartCounter) {
+              cartCounter.textContent = remainingItems;
+            }
+            
+            // カートの商品数表示を更新
+            const cartHeading = document.querySelector('.container p');
+            if (cartHeading) {
+              cartHeading.textContent = `カートに${remainingItems}件のコースが入っています`;
+            }
+            
+            // すべての商品が削除された場合、空のカートメッセージを表示
+            if (remainingItems === 0) {
+              const cartItems = document.querySelector('.cart-items');
+              cartItems.innerHTML = `
+                <div class="text-center py-5">
+                  <i class="bi bi-cart-x fs-1 text-muted mb-3"></i>
+                  <h3>カートは空です</h3>
+                  <p class="text-muted">お気に入りのコースを見つけて、学習を始めましょう。</p>
+                  <a href="index.html" class="btn btn-primary mt-3">コースを探す</a>
+                </div>
+              `;
+            }
+            
+            // 合計金額の更新
+            calculateTotal();
+          }, 300);
+        });
+      });
+      
+      // 「とっておく」ボタン
+      const saveButtons = document.querySelectorAll('.save-btn');
+      saveButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          alert('後で購入するリストに保存しました');
+          const removeBtn = this.previousElementSibling;
+          if (removeBtn) {
+            removeBtn.click(); // 商品を削除
+          }
+        });
+      });
+      
+      // クーポン適用ボタン
+      const applyButton = document.querySelector('.apply-btn');
+      if (applyButton) {
+        applyButton.addEventListener('click', function() {
+          const couponInput = document.querySelector('.coupon-input');
+          if (couponInput && couponInput.value.trim() !== '') {
+            alert(`クーポン「${couponInput.value}」を適用しました`);
+            calculateTotal();
+          } else {
+            alert('クーポンコードを入力してください');
+          }
+        });
+      }
+      
+      // アラートの閉じるボタン
+      const alertCloseButton = document.querySelector('.alert .btn-close');
+      if (alertCloseButton) {
+        alertCloseButton.addEventListener('click', function() {
+          const alert = this.closest('.alert');
+          if (alert) {
+            alert.style.display = 'none';
+          }
+        });
+      }
+      
+      // 精算ボタン
+      const checkoutButton = document.querySelector('.checkout-btn');
+      if (checkoutButton) {
+        checkoutButton.addEventListener('click', function() {
+          alert('精算ページに進みます');
+        });
+      }
+      
+      // おすすめコースのクリックイベント
+      const recommendedCourses = document.querySelectorAll('.recommended-course');
+      recommendedCourses.forEach(course => {
+        course.addEventListener('click', function() {
+          window.location.href = 'course-detail.html';
+        });
+      });
+      
+      // 合計金額を計算する関数
+      function calculateTotal() {
+        const items = document.querySelectorAll('.cart-items .card');
+        let total = 0;
+        items.forEach(item => {
+          const priceElement = item.querySelector('.discounted-price');
+          if (priceElement) {
+            const price = parseInt(priceElement.textContent.replace('¥', '').replace(',', ''));
+            total += price;
+          }
+        });
+        const totalElement = document.querySelector('.h3.fw-bold');
+        const originalTotalElement = document.querySelector('.original-price');
+        if (totalElement && originalTotalElement) {
+          totalElement.textContent = `¥${total.toLocaleString()}`;
+          const originalTotal = total * 1.36; // 27%割引を考慮
+          originalTotalElement.textContent = `¥${Math.round(originalTotal).toLocaleString()}`;
+        }
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,2056 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>大学別対策講座 - Edbase</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
+  <style>
+    /*-------------------------------
+     * 基本スタイル
+     *-------------------------------*/
+    body {
+      background-color: #f7f9fa;
+      color: #1c1d1f;
+    }
+    
+    /*-------------------------------
+     * ヘッダー・ナビゲーション
+     *-------------------------------*/
+    .bg-light-blue {
+      background-color: #f0f7f8;
+    }
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #444;
+    }
+    .logo-icon {
+      color: #f5a623;
+      font-size: 2rem;
+      margin-right: 0.5rem;
+    }
+    .cart-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      font-size: 0.7rem;
+    }
+    
+    /*-------------------------------
+     * コースカード
+     *-------------------------------*/
+    .course-card {
+      transition: all 0.3s;
+      height: 100%;
+      position: relative;
+      z-index: 1;
+      background-color: #fff;
+      border: 1px solid #e6e9ec;
+      border-radius: 8px;
+    }
+    .course-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      z-index: 5;
+    }
+    .rating-stars {
+      color: #f4c150;
+    }
+    .truncate {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    /*-------------------------------
+     * バッジ・ラベル
+     *-------------------------------*/
+    .bestseller-badge {
+      background-color: #eceb98;
+      color: #3d3c0a;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+    }
+    .recommended-badge {
+      background-color: #e6f7ff;
+      color: #0070f3;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+    }
+    .popular-badge {
+      background-color: #ffe6e6;
+      color: #ff4d4f;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+    }
+    .free-badge {
+      background-color: #f0f9eb;
+      color: #52c41a;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+    }
+    .paid-badge {
+      background-color: #fff7e6;
+      color: #fa8c16;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+    }
+    .university-badge {
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+      display: inline-block;
+    }
+    
+    /*-------------------------------
+     * 検索セクション
+     *-------------------------------*/
+    .search-heading {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .search-icon {
+      color: #f5a623;
+      font-size: 2.5rem;
+      margin-right: 1rem;
+    }
+    .search-title {
+      font-size: 2rem;
+      font-weight: bold;
+      margin: 0;
+    }
+    .search-tab-container {
+      min-width: 180px;
+    }
+    .search-tab {
+      flex: 1;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+    .search-tab.active {
+      background-color: white;
+      color: #f5a623;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      font-weight: bold;
+    }
+    .search-input-container {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+    .search-input {
+      width: 100%;
+      padding: 1rem 1rem 1rem 3rem;
+      border: 1px solid #e6e9ec;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    .search-input-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #aaa;
+    }
+    .advanced-search-link {
+      transition: all 0.2s ease;
+    }
+    .advanced-search-link:hover {
+      background-color: #e9ecef;
+    }
+    
+    /*-------------------------------
+     * フィルター
+     *-------------------------------*/
+    .filter-area {
+      border: 1px solid #e9ecef;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .filter-btn {
+      background-color: white;
+      border: 1px solid #dee2e6;
+      transition: all 0.2s ease;
+      font-weight: 500;
+    }
+    .filter-btn.active {
+      background-color: #fff8ee;
+      border-color: #f5a623;
+      color: #f5a623;
+    }
+    /*.filter-selector {
+      background-color: white;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .filter-selector .filter-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: calc(100% - 60px);
+      display: inline-block;
+      font-size: 0.9rem;
+      vertical-align: middle;
+    }*/
+    .filter-selector {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.75rem;        /* 少しパディングを詰めて枠を広く使う */
+  background-color: white;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.filter-selector .filter-text {
+  flex: 1;                        /* 空きスペースを全て使う */
+  margin-right: 0.5rem;          /* 設定ボタンとの間に隙間 */
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;       /* はみ出した分はこれで… */
+}
+
+/* 「設定」バッジは固定幅で */
+.filter-selector .setup-badge {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+}
+    .filter-selector.active {
+      border-color: #f5a623 !important;
+    }
+    .filter-selector.active .setup-badge {
+      background-color: #f5a623 !important;
+    }
+    .setup-badge {
+      transition: all 0.2s ease;
+    }
+    .search-btn {
+      height: 44px;
+      transition: all 0.2s ease;
+    }
+    .search-btn:hover {
+      background-color: #0b5ed7;
+    }
+    .reset-btn {
+      color: #6c757d;
+      transition: all 0.2s ease;
+    }
+    .reset-btn:hover {
+      color: #495057;
+    }
+    
+    /*-------------------------------
+     * ポップオーバー
+     *-------------------------------*/
+    .card-with-popover {
+      position: relative;
+    }
+    .udemy-popover {
+      position: absolute;
+      z-index: 10;
+      background: white;
+      border-radius: 4px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+      width: 360px;
+      padding: 20px;
+      top: 0;
+      left: 102%;
+      display: none;
+    }
+    .udemy-popover:before {
+      content: "";
+      position: absolute;
+      top: 20px;
+      left: -10px;
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-right: 10px solid white;
+    }
+    .card-last .udemy-popover {
+      left: auto;
+      right: 102%;
+    }
+    .card-last .udemy-popover:before {
+      left: auto;
+      right: -10px;
+      border-right: none;
+      border-left: 10px solid white;
+    }
+    .udemy-popover.show {
+      display: block !important;
+    }
+    
+    /*-------------------------------
+     * モーダル
+     *-------------------------------*/
+    .modal-header, .modal-footer {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+    .modal-body {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+    .faculty-option, 
+    .location-option, 
+    .subject-option, 
+    .price-option {
+      transition: all 0.2s ease;
+      border-radius: 4px;
+      border-color: #dee2e6;
+      font-weight: 400;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .faculty-option:hover, 
+    .location-option:hover, 
+    .subject-option:hover, 
+    .price-option:hover {
+      border-color: #b6b6b6;
+      background-color: #f8f9fa;
+    }
+    .faculty-option.selected, 
+    .location-option.selected, 
+    .subject-option.selected, 
+    .price-option.selected {
+      border-color: #f5a623 !important;
+      color: #f5a623;
+      background-color: #fff8ee;
+      position: relative;
+    }
+    .faculty-option.selected::after, 
+    .location-option.selected::after, 
+    .subject-option.selected::after, 
+    .price-option.selected::after {
+      content: "\F26E";
+      font-family: "bootstrap-icons";
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .toggle-btn {
+      color: #6c757d;
+      transition: all 0.2s ease;
+    }
+    .toggle-btn:hover {
+      color: #495057;
+    }
+    
+    
+    /*-------------------------------
+     * 検索サジェスト
+     *-------------------------------*/
+    .suggestion-item {
+      padding: 15px 20px;
+      border-bottom: 1px solid #f0f0f0;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .suggestion-item:last-child {
+      border-bottom: none;
+    }
+    .suggestion-item:hover {
+      background-color: #f8f9fa;
+    }
+    .suggestion-item.active {
+      background-color: #e9ecef;
+    }
+    .suggestion-item .university-name {
+      font-size: 1rem;
+      color: #333;
+      font-weight: 500;
+    }
+    .suggestion-item .arrow-icon {
+      color: #aaa;
+    }
+    /*-------------------------------
+     * レスポンシブ
+     *-------------------------------*/
+    @media (min-width: 992px) {
+      .row .col-lg-3:last-child .udemy-popover,
+      .row .col-lg-4:last-child .udemy-popover {
+        left: auto;
+        right: 102%;
+      }
+      
+      .row .col-lg-3:last-child .udemy-popover:before,
+      .row .col-lg-4:last-child .udemy-popover:before {
+        left: auto;
+        right: -10px;
+        border-right: none;
+        border-left: 10px solid white;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .search-tabs, .filter-buttons, .filter-selectors {
+        flex-wrap: wrap;
+      }
+      .filter-selector {
+        width: 100%;
+        flex: none;
+      }
+      .search-footer {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .search-actions {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+      }
+      .search-section {
+        padding: 0 10px;
+      }
+      .filter-area {
+        padding: 15px !important;
+      }
+      .search-tab {
+        padding: 6px 12px !important;
+      }
+      .setup-badge {
+        padding: 2px 5px !important;
+        font-size: 0.65rem;
+      }
+      .filter-selector {
+        font-size: 0.9rem;
+      }
+      .search-heading .search-icon {
+        font-size: 1.8rem !important;
+      }
+      .search-heading .search-title {
+        font-size: 1.5rem !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- お知らせバー -->
+  <div class="bg-light-blue py-2 text-center">
+    <div class="container">
+      <small>2025年度 入試対策講座の申込受付中！早期割引は6月末まで <a href="#" class="text-decoration-none">詳細はこちら</a></small>
+    </div>
+  </div>
+
+  <!-- ナビゲーションバー -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom py-2">
+    <div class="container">
+      <!-- ロゴ -->
+      <a class="navbar-brand d-flex align-items-center" href="#">
+        <i class="bi bi-mortarboard-fill logo-icon"></i>
+        <span class="logo-text">Edbase</span>
+      </a>
+
+      <!-- ハンバーガーメニュー -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- ナビリンク -->
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">コース</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">プラン</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">大学情報</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">合格体験記</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">講師紹介</a>
+          </li>
+        </ul>
+
+        <!-- 右側メニュー -->
+        <div class="d-flex align-items-center">
+          <a href="#" class="text-decoration-none text-dark position-relative me-3">
+            <i class="bi bi-heart fs-5"></i>
+          </a>
+          
+          <a href="#" class="text-decoration-none text-dark position-relative me-3">
+            <i class="bi bi-cart fs-5"></i>
+            <span id="cart-counter" class="badge rounded-pill bg-primary cart-badge">0</span>
+          </a>
+          
+          <a href="#" class="text-decoration-none text-dark position-relative me-3">
+            <i class="bi bi-bell fs-5"></i>
+          </a>
+          
+          <a href="#" class="text-decoration-none">
+            <div class="rounded-circle bg-dark text-white d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+              <span>U</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- メインコンテンツ -->
+  <div class="container py-4">
+    <!-- 検索セクション -->
+    <section class="search-section mb-5">
+      <!-- 検索ヘッダー -->
+      <div class="search-heading d-flex align-items-center mb-4">
+        <i class="bi bi-search text-warning fs-1 me-3"></i>
+        <h2 class="search-title mb-0 fs-2 fw-bold">大学を探す</h2>
+      </div>
+      
+      <!-- 検索タブ -->
+      <div class="search-tab-container bg-light rounded-pill d-inline-flex mb-4" style="padding: 4px;">
+        <button class="search-tab active border-0 rounded-pill px-4 py-2 fw-bold">大学</button>
+        <button class="search-tab border-0 rounded-pill px-4 py-2">短大</button>
+      </div>
+      
+      <!-- 検索フォームエリア -->
+      <div class="row mb-4 g-3">
+        <div class="col-md-8">
+          <div class="position-relative">
+            <input type="text" class="form-control form-control-lg border rounded-3 ps-5" placeholder="大学名で探す" style="height: 56px;">
+            <i class="bi bi-search position-absolute text-muted" style="left: 20px; top: 17px;"></i>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <a href="#" class="advanced-search-link d-flex align-items-center justify-content-between bg-light text-dark rounded-3 px-4 py-3 text-decoration-none h-100">
+            <div>
+              <i class="bi bi-sliders me-2 text-warning"></i>
+              <span>より詳しい条件で探す</span>
+            </div>
+            <i class="bi bi-chevron-right"></i>
+          </a>
+        </div>
+      </div>
+      
+      <!-- 検索フィルターエリア -->
+      <div class="filter-area bg-light rounded-4 p-4 mb-4">
+        <!-- 区分ボタン -->
+        <div class="filter-buttons mb-4">
+          <div class="row g-2">
+            <div class="col-auto">
+              <button class="filter-btn rounded-pill py-2 px-4" data-filter="national">国立</button>
+            </div>
+            <div class="col-auto">
+              <button class="filter-btn rounded-pill py-2 px-4" data-filter="public">公立</button>
+            </div>
+            <div class="col-auto">
+              <button class="filter-btn rounded-pill py-2 px-4" data-filter="private">私立</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 選択フィルター -->
+        <div class="filter-selectors mb-4">
+          <div class="row g-3">
+            <div class="col-md-6 col-lg-3">
+              <button class="location-filter filter-selector w-100 py-2 px-3 border rounded d-flex align-items-center justify-content-between" data-bs-toggle="modal" data-bs-target="#locationModal">
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-geo-alt me-2 text-muted"></i>
+                  <span class="filter-text">都道府県を選ぶ</span>
+                </div>
+                <span class="setup-badge badge bg-secondary px-2 py-1">設定</span>
+              </button>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <button class="faculty-filter filter-selector w-100 py-2 px-3 border rounded d-flex align-items-center justify-content-between" data-bs-toggle="modal" data-bs-target="#facultyModal">
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-book me-2 text-muted"></i>
+                  <span class="filter-text">学部系統を選ぶ</span>
+                </div>
+                <span class="setup-badge badge bg-secondary px-2 py-1">設定</span>
+              </button>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <button class="subject-filter filter-selector w-100 py-2 px-3 border rounded d-flex align-items-center justify-content-between" data-bs-toggle="modal" data-bs-target="#subjectModal">
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-journal-text me-2 text-muted"></i>
+                  <span class="filter-text">教科を選ぶ</span>
+                </div>
+                <span class="setup-badge badge bg-secondary px-2 py-1">設定</span>
+              </button>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <button class="price-filter filter-selector w-100 py-2 px-3 border rounded d-flex align-items-center justify-content-between" data-bs-toggle="modal" data-bs-target="#priceModal">
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-currency-yen me-2 text-muted"></i>
+                  <span class="filter-text">料金タイプを選ぶ</span>
+                </div>
+                <span class="setup-badge badge bg-secondary px-2 py-1">設定</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 検索フッター -->
+        <div class="d-flex flex-wrap justify-content-between align-items-center">
+          <div class="target-count mb-3 mb-md-0">
+            <span class="fs-6">対象校：</span>
+            <span class="fs-5 fw-bold text-warning">64</span>
+            <span class="fs-6">校</span>
+          </div>
+          <div class="d-flex gap-3">
+            <button class="reset-btn d-flex align-items-center bg-transparent border-0" id="mainResetBtn">
+              <i class="bi bi-arrow-counterclockwise me-2"></i>
+              <span>条件をリセット</span>
+            </button>
+            <button class="search-btn d-flex align-items-center justify-content-center bg-primary text-white border-0 rounded px-4 py-2">
+              <i class="bi bi-search me-2"></i>
+              <span>大学を検索</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 東京大学対策講座 -->
+    <div class="my-5">
+      <h2 class="h4 mb-4">東京大学対策講座</h2>
+      <p class="text-muted mb-4">東京大学の過去問分析から、志望学部ごとに効果的な対策を提供しています。</p>
+      
+      <!-- コース一覧 -->
+      <div class="row g-4">
+        <!-- コース1 -->
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="card course-card card-with-popover">
+            <img src="seito.jpeg" class="card-img-top" alt="東京大学の徹底分析">
+            <div class="card-body d-flex flex-column">
+              <div class="mb-2">
+                <span class="university-badge bg-primary text-white">東京大学</span>
+                <span class="free-badge">無料講座</span>
+              </div>
+              <h5 class="card-title truncate">
+                <a href="course-detail.html" class="text-decoration-none text-dark">東京大学の徹底分析〜学部ごとの出題傾向を過去問で徹底分析〜</a>
+              </h5>
+              <p class="small text-muted mb-1">制作講師名</p>
+              <div class="d-flex align-items-center mb-2">
+                <span class="fw-bold me-1">4.8</span>
+                <div class="rating-stars me-1">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-half"></i>
+                </div>
+                <span class="text-muted small">(8)</span>
+              </div>
+              <div class="mt-auto">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <span class="fw-bold">¥10,000</span>
+                  </div>
+                  <button class="btn btn-sm btn-outline-primary add-to-cart-btn" data-course-id="tokyo1" data-course-title="東京大学の徹底分析" data-course-price="10000">カートに入れる</button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- ポップオーバー -->
+            <div class="udemy-popover">
+              <h5 class="mb-3">東京大学の徹底分析〜学部ごとの出題傾向を過去問で徹底分析〜</h5>
+              <p class="mb-2">更新済み 2025年1月</p>
+              <p class="mb-2">合計12時間・初級レベル・字幕</p>
+              <p class="mb-3">東京大学を志望する受験生のための徹底分析講座。学部別の対策で効率的に合格を目指せます。</p>
+              <ul class="list-unstyled mb-3">
+                <li class="mb-2"><i class="bi bi-check me-2"></i>各学部ごとの過去10年分の傾向分析</li>
+                <li class="mb-2"><i class="bi bi-check me-2"></i>効率的な学習法のステップ解説</li>
+                <li class="mb-2"><i class="bi bi-check me-2"></i>合格者体験談と学習計画例</li>
+              </ul>
+              <button class="btn btn-primary w-100 add-to-cart-btn" data-course-id="tokyo1" data-course-title="東京大学の徹底分析" data-course-price="10000">カートに入れる</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- コース2 -->
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="card course-card card-with-popover">
+            <img src="seito.jpeg" class="card-img-top" alt="東京大学完全攻略">
+            <div class="card-body d-flex flex-column">
+              <div class="mb-2">
+                <span class="university-badge bg-primary text-white">東京大学</span>
+                <span class="paid-badge">有料講座</span>
+              </div>
+              <h5 class="card-title truncate">
+                <a href="#" class="text-decoration-none text-dark">東京大学完全攻略〜最新5年度分の過去問による実践的攻略法伝授〜</a>
+              </h5>
+              <p class="small text-muted mb-1">制作講師名</p>
+              <div class="d-flex align-items-center mb-2">
+                <span class="fw-bold me-1">4.8</span>
+                <div class="rating-stars me-1">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-half"></i>
+                </div>
+                <span class="text-muted small">(8)</span>
+              </div>
+              <div class="mt-auto">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <span class="fw-bold">¥10,000</span>
+                  </div>
+                  <button class="btn btn-sm btn-outline-primary add-to-cart-btn" data-course-id="tokyo2" data-course-title="東京大学完全攻略" data-course-price="10000">カートに入れる</button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- ポップオーバー -->
+            <div class="udemy-popover">
+              <h5 class="mb-3">東京大学完全攻略〜最新5年度分の過去問による実践的攻略法伝授〜</h5>
+              <p class="mb-2">更新済み 2025年2月</p>
+              <p class="mb-2">合計15時間・中級レベル・字幕</p>
+              <p class="mb-3">東京大学合格のための実践的な解法テクニックを伝授。最新の出題傾向を踏まえた対策を学べます。</p>
+              <ul class="list-unstyled mb-3">
+                <li class="mb-2"><i class="bi bi-check me-2"></i>最新5年分の過去問の解説と解法</li>
+                <li class="mb-2"><i class="bi bi-check me-2"></i>出題者の意図を読み解く解答テクニック</li>
+                <li class="mb-2"><i class="bi bi-check me-2"></i>直前期の効率的な学習法</li>
+              </ul>
+              <button class="btn btn-primary w-100 add-to-cart-btn" data-course-id="tokyo2" data-course-title="東京大学完全攻略" data-course-price="10000">カートに入れる</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- コース3 & 4は省略 (実際の実装では同様に配置)-->
+      </div>
+      
+      <!-- すべての東大講座を表示ボタン -->
+      <div class="text-center mt-4">
+        <button class="btn btn-primary px-4">東京大学対策の講座をすべて見る</button>
+      </div>
+    </div>
+    
+    <!-- 京都大学対策講座 (省略) -->
+  </div>
+
+  <!-- カートに追加モーダル -->
+  <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="cartModalLabel">カートに追加しました</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- 追加されたコース -->
+          <div class="d-flex align-items-center mb-4 border-bottom pb-3" id="addedCourseContainer">
+            <div class="me-3">
+              <i class="bi bi-check-circle-fill text-success fs-4"></i>
+            </div>
+            <div class="d-flex align-items-center">
+              <img src="/api/placeholder/120/68" class="me-3" alt="コースサムネイル">
+              <div>
+                <h6 id="addedCourseTitle">東京大学の徹底分析〜学部ごとの出題傾向を過去問で徹底分析〜</h6>
+                <p class="small mb-0">制作講師名</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- おすすめコース -->
+          <h6 class="mb-3">よく一緒に受講されるコース</h6>
+          
+          <div class="row g-3">
+            <!-- おすすめコース1 -->
+            <div class="col-12">
+              <div class="card mb-3">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="/api/placeholder/240/135" class="img-fluid rounded-start" alt="コースサムネイル">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <div class="d-flex justify-content-between">
+                        <div>
+                          <h6 class="card-title">東大理系数学の対策講座 - 頻出テーマ別</h6>
+                          <p class="small mb-1">数学講師 鈴木先生</p>
+                          <div class="d-flex align-items-center mb-2">
+                            <span class="fw-bold me-1">4.6</span>
+                            <div class="rating-stars me-1">
+                              <i class="bi bi-star-fill"></i>
+                              <i class="bi bi-star-fill"></i>
+                              <i class="bi bi-star-fill"></i>
+                              <i class="bi bi-star-fill"></i>
+                              <i class="bi bi-star-half"></i>
+                            </div>
+                            <span class="text-muted small">(2,379)</span>
+                          </div>
+                          <span class="bestseller-badge">ベストセラー</span>
+                        </div>
+                        <div class="text-end">
+                          <p class="fw-bold mb-1">¥8,000</p>
+                          <p class="text-decoration-line-through small text-muted">¥12,800</p>
+                          <button class="btn btn-outline-primary btn-sm add-recommended-btn" data-course-id="rec1" data-course-title="東大理系数学の対策講座" data-course-price="8000">
+                            <i class="bi bi-plus"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- おすすめコース2 (省略) -->
+          </div>
+          
+          <!-- 合計金額 -->
+          <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top">
+            <div>
+              <p class="mb-0">合計: <span id="totalPrice" class="fw-bold">¥10,000</span></p>
+            </div>
+            <div>
+              <button type="button" class="btn btn-outline-dark me-2" data-bs-dismiss="modal">ショッピングを続ける</button>
+              <button type="button" class="btn btn-primary" id="goToCartBtn">まとめてカートに追加</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 学部系統選択モーダル -->
+  <div class="modal fade" id="facultyModal" tabindex="-1" aria-labelledby="facultyModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="modal-title fs-5 fw-bold" id="facultyModalLabel">学部系統を選択</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body py-0">
+          <hr>
+          <!-- 文学部 -->
+          <div class="faculty-group mb-4">
+            <div class="d-flex align-items-center mb-3">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="literatureCheck">
+                <label class="form-check-label fw-bold" for="literatureCheck">
+                  文学部
+                </label>
+              </div>
+              <button class="btn btn-link ms-auto p-0 toggle-btn">
+                <i class="bi bi-chevron-up"></i>
+              </button>
+            </div>
+            <div class="sub-items">
+              <div class="row g-2">
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">文学</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">史学・地理学</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">哲学</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">心理学</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">言語学</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">考古学</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 外国語学部 -->
+          <div class="faculty-group mb-4">
+            <div class="d-flex align-items-center mb-3">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="foreignLangCheck">
+                <label class="form-check-label fw-bold" for="foreignLangCheck">
+                  外国語学部
+                </label>
+              </div>
+              <button class="btn btn-link ms-auto p-0 toggle-btn">
+                <i class="bi bi-chevron-up"></i>
+              </button>
+            </div>
+            <div class="sub-items">
+              <div class="row g-2">
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">英語</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">ドイツ語</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">フランス語</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">中国語</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">韓国語</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">ロシア語</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 法学部 -->
+          <div class="faculty-group mb-4">
+            <div class="d-flex align-items-center mb-3">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="lawCheck">
+                <label class="form-check-label fw-bold" for="lawCheck">
+                  法学部
+                </label>
+              </div>
+              <button class="btn btn-link ms-auto p-0 toggle-btn">
+                <i class="bi bi-chevron-up"></i>
+              </button>
+            </div>
+            <div class="sub-items">
+              <div class="row g-2">
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">法学</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">政治学</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">国際法</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">行政学</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 経済学部 -->
+          <div class="faculty-group mb-4">
+            <div class="d-flex align-items-center mb-3">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="economicsCheck">
+                <label class="form-check-label fw-bold" for="economicsCheck">
+                  経済学部
+                </label>
+              </div>
+              <button class="btn btn-link ms-auto p-0 toggle-btn">
+                <i class="bi bi-chevron-up"></i>
+              </button>
+            </div>
+            <div class="sub-items">
+              <div class="row g-2">
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">経済学</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">経営学</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">会計学</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">国際経済</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">経済数学</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">マーケティング</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 理学部 -->
+          <div class="faculty-group mb-4">
+            <div class="d-flex align-items-center mb-3">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="scienceCheck">
+                <label class="form-check-label fw-bold" for="scienceCheck">
+                  理学部
+                </label>
+              </div>
+              <button class="btn btn-link ms-auto p-0 toggle-btn">
+                <i class="bi bi-chevron-up"></i>
+              </button>
+            </div>
+            <div class="sub-items">
+              <div class="row g-2">
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">数学</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">物理学</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">化学</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">生物学</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">地球科学</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">天文学</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 工学部 -->
+          <div class="faculty-group mb-4">
+            <div class="d-flex align-items-center mb-3">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="engineeringCheck">
+                <label class="form-check-label fw-bold" for="engineeringCheck">
+                  工学部
+                </label>
+              </div>
+              <button class="btn btn-link ms-auto p-0 toggle-btn">
+                <i class="bi bi-chevron-up"></i>
+              </button>
+            </div>
+            <div class="sub-items">
+              <div class="row g-2">
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">機械工学</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">電気電子工学</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">情報工学</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">建築学</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">土木工学</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">航空宇宙工学</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 医学部 -->
+          <div class="faculty-group mb-4">
+            <div class="d-flex align-items-center mb-3">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="medicineCheck">
+                <label class="form-check-label fw-bold" for="medicineCheck">
+                  医学部
+                </label>
+              </div>
+              <button class="btn btn-link ms-auto p-0 toggle-btn">
+                <i class="bi bi-chevron-up"></i>
+              </button>
+            </div>
+            <div class="sub-items">
+              <div class="row g-2">
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">医学科</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">看護学科</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">保健学科</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="faculty-option btn w-100 py-2 text-center border">検査技術学科</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-outline-secondary" id="resetFacultyBtn">条件をリセット</button>
+          <button type="button" class="btn btn-primary px-4" id="applyFacultyBtn" data-bs-dismiss="modal">決定</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 都道府県選択モーダル -->
+  <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="modal-title fs-5 fw-bold" id="locationModalLabel">都道府県を選択</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body py-0">
+          <hr>
+          <div class="row g-3">
+            <!-- 北海道・東北 -->
+            <div class="col-12 mb-2"><span class="fw-bold text-muted small">北海道・東北</span></div>
+            <div class="col-md-3 col-6">
+              <button class="location-option btn w-100 py-2 text-center border">北海道</button>
+            </div>
+            <div class="col-md-3 col-6">
+              <button class="location-option btn w-100 py-2 text-center border">青森県</button>
+            </div>
+            <div class="col-md-3 col-6">
+              <button class="location-option btn w-100 py-2 text-center border">岩手県</button>
+            </div>
+            <div class="col-md-3 col-6">
+              <button class="location-option btn w-100 py-2 text-center border">宮城県</button>
+            </div>
+            <div class="col-md-3 col-6">
+              <button class="location-option btn w-100 py-2 text-center border">秋田県</button>
+            </div>
+            <div class="col-md-3 col-6">
+              <button class="location-option btn w-100 py-2 text-center border">山形県</button>
+            </div>
+            <div class="col-md-3 col-6">
+              <button class="location-option btn w-100 py-2 text-center border">福島県</button>
+            </div>
+            
+            <!-- 関東 -->
+            <div class="col-12 mt-3 mb-2"><span class="fw-bold text-muted small">関東</span></div>
+            <div class="col-md-3 col-6">
+              <button class="location-option btn w-100 py-2 text-center border">茨城県</button>
+            </div>
+            <div class="col-md-3 col-6">
+              <button class="location-option btn w-100 py-2 text-center border">栃木県</button>
+            </div>
+            <div class="col-md-3 col-6">
+              <button class="location-option btn w-100 py-2 text-center border">群馬県</button>
+            </div>
+            <div class="col-md-3 col-6">
+              <button class="location-option btn w-100 py-2 text-center border">埼玉県</button>
+            </div>
+            <div class="col-md-3 col-6">
+              <button class="location-option btn w-100 py-2 text-center border">千葉県</button>
+            </div>
+            <div class="col-md-3 col-6">
+              <button class="location-option btn w-100 py-2 text-center border">東京都</button>
+            </div>
+            <div class="col-md-3 col-6">
+              <button class="location-option btn w-100 py-2 text-center border">神奈川県</button>
+            </div>
+            
+            <!-- 中部 -->
+            <div class="col-12 mt-3 mb-2"><span class="fw-bold text-muted small">中部</span></div>
+            <div class="col-md-3 col-6">
+              <button class="location-option btn w-100 py-2 text-center border">新潟県</button>
+            </div>
+            <div class="col-md-3 col-6">
+              <button class="location-option btn w-100 py-2 text-center border">富山県</button>
+            </div>
+            <div class="col-md-3 col-6">
+              <button class="location-option btn w-100 py-2 text-center border">石川県</button>
+            </div>
+            <div class="col-md-3 col-6">
+              <button class="location-option btn w-100 py-2 text-center border">福井県</button>
+            </div>
+            <div class="col-md-3 col-6">
+              <button class="location-option btn w-100 py-2 text-center border">山梨県</button>
+            </div>
+            <div class="col-md-3 col-6">
+              <button class="location-option btn w-100 py-2 text-center border">長野県</button>
+            </div>
+            <div class="col-md-3 col-6">
+              <button class="location-option btn w-100 py-2 text-center border">岐阜県</button>
+            </div>
+            <div class="col-md-3 col-6">
+              <button class="location-option btn w-100 py-2 text-center border">静岡県</button>
+            </div>
+            <div class="col-md-3 col-6">
+              <button class="location-option btn w-100 py-2 text-center border">愛知県</button>
+            </div>
+            
+            <!-- 近畿 -->
+            <div class="col-12 mt-3 mb-2"><span class="fw-bold text-muted small">近畿</span></div>
+            <div class="col-md-3 col-6">
+              <button class="location-option btn w-100 py-2 text-center border">三重県</button>
+            </div>
+            <div class="col-md-3 col-6">
+              <button class="location-option btn w-100 py-2 text-center border">滋賀県</button>
+            </div>
+            <div class="col-md-3 col-6">
+              <button class="location-option btn w-100 py-2 text-center border">京都府</button>
+            </div>
+            <div class="col-md-3 col-6">
+              <button class="location-option btn w-100 py-2 text-center border">大阪府</button>
+            </div>
+            <div class="col-md-3 col-6">
+              <button class="location-option btn w-100 py-2 text-center border">兵庫県</button>
+            </div>
+            <div class="col-md-3 col-6">
+              <button class="location-option btn w-100 py-2 text-center border">奈良県</button>
+            </div>
+            <div class="col-md-3 col-6">
+              <button class="location-option btn w-100 py-2 text-center border">和歌山県</button>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-outline-secondary" id="resetLocationBtn">条件をリセット</button>
+          <button type="button" class="btn btn-primary px-4" id="applyLocationBtn" data-bs-dismiss="modal">決定</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 教科選択モーダル -->
+  <div class="modal fade" id="subjectModal" tabindex="-1" aria-labelledby="subjectModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="modal-title fs-5 fw-bold" id="subjectModalLabel">教科を選択</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body py-0">
+          <hr>
+          <div class="mb-4">
+            <h6 class="mb-3 fw-bold">受験に必要な教科</h6>
+            <div class="row g-2">
+              <div class="col-md-4 col-6">
+                <button class="subject-option btn w-100 py-2 text-center border">国語</button>
+              </div>
+              <div class="col-md-4 col-6">
+                <button class="subject-option btn w-100 py-2 text-center border">英語</button>
+              </div>
+              <div class="col-md-4 col-6">
+                <button class="subject-option btn w-100 py-2 text-center border">数学I・A</button>
+              </div>
+              <div class="col-md-4 col-6">
+                <button class="subject-option btn w-100 py-2 text-center border">数学II・B</button>
+              </div>
+              <div class="col-md-4 col-6">
+                <button class="subject-option btn w-100 py-2 text-center border">数学III</button>
+              </div>
+              <div class="col-md-4 col-6">
+                <button class="subject-option btn w-100 py-2 text-center border">物理基礎</button>
+              </div>
+              <div class="col-md-4 col-6">
+                <button class="subject-option btn w-100 py-2 text-center border">物理</button>
+              </div>
+              <div class="col-md-4 col-6">
+                <button class="subject-option btn w-100 py-2 text-center border">化学基礎</button>
+              </div>
+              <div class="col-md-4 col-6">
+                <button class="subject-option btn w-100 py-2 text-center border">化学</button>
+              </div>
+              <div class="col-md-4 col-6">
+                <button class="subject-option btn w-100 py-2 text-center border">生物基礎</button>
+              </div>
+              <div class="col-md-4 col-6">
+                <button class="subject-option btn w-100 py-2 text-center border">生物</button>
+              </div>
+              <div class="col-md-4 col-6">
+                <button class="subject-option btn w-100 py-2 text-center border">地学基礎</button>
+              </div>
+              <div class="col-md-4 col-6">
+                <button class="subject-option btn w-100 py-2 text-center border">地学</button>
+              </div>
+              <div class="col-md-4 col-6">
+                <button class="subject-option btn w-100 py-2 text-center border">世界史B</button>
+              </div>
+              <div class="col-md-4 col-6">
+                <button class="subject-option btn w-100 py-2 text-center border">日本史B</button>
+              </div>
+              <div class="col-md-4 col-6">
+                <button class="subject-option btn w-100 py-2 text-center border">地理B</button>
+              </div>
+              <div class="col-md-4 col-6">
+                <button class="subject-option btn w-100 py-2 text-center border">現代社会</button>
+              </div>
+              <div class="col-md-4 col-6">
+                <button class="subject-option btn w-100 py-2 text-center border">倫理</button>
+              </div>
+              <div class="col-md-4 col-6">
+                <button class="subject-option btn w-100 py-2 text-center border">政治・経済</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-outline-secondary" id="resetSubjectBtn">条件をリセット</button>
+          <button type="button" class="btn btn-primary px-4" id="applySubjectBtn" data-bs-dismiss="modal">決定</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 料金タイプ選択モーダル -->
+  <div class="modal fade" id="priceModal" tabindex="-1" aria-labelledby="priceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="modal-title fs-5 fw-bold" id="priceModalLabel">料金タイプを選択</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body py-0">
+          <hr>
+          <div class="mb-4">
+            <h6 class="mb-3 fw-bold">講座タイプ</h6>
+            <div class="row g-2">
+              <div class="col-6">
+                <button class="price-option btn w-100 py-2 text-center border">無料講座</button>
+              </div>
+              <div class="col-6">
+                <button class="price-option btn w-100 py-2 text-center border">有料講座</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <h6 class="mb-3 fw-bold">価格帯</h6>
+            <div class="row g-2">
+              <div class="col-md-6">
+                <button class="price-option btn w-100 py-2 text-center border">5,000円未満</button>
+              </div>
+              <div class="col-md-6">
+                <button class="price-option btn w-100 py-2 text-center border">5,000円〜10,000円</button>
+              </div>
+              <div class="col-md-6">
+                <button class="price-option btn w-100 py-2 text-center border">10,000円〜15,000円</button>
+              </div>
+              <div class="col-md-6">
+                <button class="price-option btn w-100 py-2 text-center border">15,000円〜20,000円</button>
+              </div>
+              <div class="col-md-6">
+                <button class="price-option btn w-100 py-2 text-center border">20,000円〜30,000円</button>
+              </div>
+              <div class="col-md-6">
+                <button class="price-option btn w-100 py-2 text-center border">30,000円以上</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-outline-secondary" id="resetPriceBtn">条件をリセット</button>
+          <button type="button" class="btn btn-primary px-4" id="applyPriceBtn" data-bs-dismiss="modal">決定</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap 5 JS with Popper -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      /**
+       * 検索関連の機能
+       */
+      /**
+       * 検索関連の機能
+       */
+      
+      // 検索タブ切り替え
+      const searchTabs = document.querySelectorAll('.search-tab');
+      searchTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+          searchTabs.forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+      
+      // 区分フィルター選択
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          this.classList.toggle('active');
+        });
+      });
+      
+      /**
+       * フィルターと選択モーダルの機能
+       */
+      
+      // モーダル内のオプション選択機能を設定
+      const setupOptionSelect = (optionClass, parentSelector) => {
+        const options = document.querySelectorAll(`.${optionClass}`);
+        options.forEach(option => {
+          option.addEventListener('click', function() {
+            this.classList.toggle('selected');
+            
+            // 親チェックボックスの更新
+            if (parentSelector) {
+              updateParentCheckboxState(this, parentSelector);
+            }
+          });
+        });
+      };
+      
+      // オプション選択機能の設定
+      setupOptionSelect('faculty-option', '.faculty-group');
+      setupOptionSelect('location-option');
+      setupOptionSelect('subject-option');
+      setupOptionSelect('price-option');
+      
+      // トグルボタンの機能
+      const toggleBtns = document.querySelectorAll('.toggle-btn');
+      toggleBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          const subItems = this.closest('.faculty-group').querySelector('.sub-items');
+          const icon = this.querySelector('i');
+          
+          if (icon.classList.contains('bi-chevron-up')) {
+            icon.classList.replace('bi-chevron-up', 'bi-chevron-down');
+            subItems.style.display = 'none';
+          } else {
+            icon.classList.replace('bi-chevron-down', 'bi-chevron-up');
+            subItems.style.display = 'block';
+          }
+        });
+      });
+      
+      // 親チェックボックスと子要素の連動
+      const parentCheckboxes = document.querySelectorAll('.faculty-group .form-check-input');
+      parentCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+          const options = this.closest('.faculty-group').querySelectorAll('.faculty-option');
+          options.forEach(option => {
+            if (this.checked) {
+              option.classList.add('selected');
+            } else {
+              option.classList.remove('selected');
+            }
+          });
+        });
+      });
+      
+      // 子要素の選択状態に応じて親チェックボックスを更新
+      function updateParentCheckboxState(clickedOption, parentSelector) {
+        const parent = clickedOption.closest(parentSelector);
+        if (!parent) return;
+        
+        const parentCheckbox = parent.querySelector('.form-check-input');
+        if (!parentCheckbox) return;
+        
+        const allOptions = parent.querySelectorAll('.faculty-option');
+        const selectedOptions = parent.querySelectorAll('.faculty-option.selected');
+        
+        if (selectedOptions.length === 0) {
+          parentCheckbox.checked = false;
+          parentCheckbox.indeterminate = false;
+        } else if (selectedOptions.length === allOptions.length) {
+          parentCheckbox.checked = true;
+          parentCheckbox.indeterminate = false;
+        } else {
+          parentCheckbox.checked = false;
+          parentCheckbox.indeterminate = true;
+        }
+      }
+      
+      /**
+       * モーダルの決定とリセットボタンの機能
+       */
+      
+      // 決定ボタンの処理を統一する関数
+      const setupApplyButton = (btnId, selector, filterClass, defaultText) => {
+        const applyBtn = document.getElementById(btnId);
+        if (!applyBtn) return;
+        
+        applyBtn.addEventListener('click', function() {
+          const selectedOptions = document.querySelectorAll(`${selector}.selected`);
+          const filterBtn = document.querySelector(`.${filterClass}`);
+          const filterText = filterBtn.querySelector('.filter-text');
+          
+          if (selectedOptions.length > 0) {
+            filterBtn.classList.add('active');
+            
+            const labels = Array.from(selectedOptions).map(option => option.textContent.trim());
+            
+            // 選択した項目のテキストを「、」で結合して表示し、長すぎる場合は制限
+            if (labels.length === 1) {
+              // 単一選択の場合
+              filterText.textContent = labels[0];
+            } else if (labels.length === 2) {
+              // 2つ選択の場合
+              filterText.textContent = labels.join('、');
+            } else {
+              // 3つ以上選択の場合
+              filterText.textContent = labels.slice(0, 2).join('、') + '...';
+            }
+          } else {
+            filterBtn.classList.remove('active');
+            filterText.textContent = defaultText;
+          }
+          
+          // モーダルを閉じる
+          const modalElement = document.getElementById(btnId.replace('apply', '').toLowerCase() + 'Modal');
+          const modalInstance = bootstrap.Modal.getInstance(modalElement);
+          if (modalInstance) {
+            modalInstance.hide();
+          }
+        });
+      };
+      
+      // すべての決定ボタンの設定
+      setupApplyButton('applyFacultyBtn', '.faculty-option', 'faculty-filter', '学部系統を選ぶ');
+      setupApplyButton('applyLocationBtn', '.location-option', 'location-filter', '都道府県を選ぶ');
+      setupApplyButton('applySubjectBtn', '.subject-option', 'subject-filter', '教科を選ぶ');
+      setupApplyButton('applyPriceBtn', '.price-option', 'price-filter', '料金タイプを選ぶ');
+      
+      // モーダル内のリセットボタン処理を統一する関数
+      const setupResetButton = (btnId, selector, checkboxSelector = null) => {
+        const resetBtn = document.getElementById(btnId);
+        if (!resetBtn) return;
+        
+        resetBtn.addEventListener('click', function() {
+          // オプションの選択をクリア
+          const options = document.querySelectorAll(selector);
+          options.forEach(option => {
+            option.classList.remove('selected');
+          });
+          
+          // チェックボックスをクリア（該当する場合）
+          if (checkboxSelector) {
+            const checkboxes = document.querySelectorAll(checkboxSelector);
+            checkboxes.forEach(checkbox => {
+              checkbox.checked = false;
+              checkbox.indeterminate = false;
+            });
+          }
+        });
+      };
+      
+      // すべてのリセットボタン設定
+      setupResetButton('resetFacultyBtn', '.faculty-option', '.faculty-group .form-check-input');
+      setupResetButton('resetLocationBtn', '.location-option');
+      setupResetButton('resetSubjectBtn', '.subject-option');
+      setupResetButton('resetPriceBtn', '.price-option');
+      
+      /**
+       * メインのリセットボタンの機能
+       */
+      // メインの検索リセットボタン
+      const mainResetBtn = document.getElementById('mainResetBtn');
+      if (mainResetBtn) {
+        mainResetBtn.addEventListener('click', function() {
+          // 区分ボタンリセット
+          filterButtons.forEach(btn => {
+            btn.classList.remove('active');
+          });
+          
+          // フィルターセレクターリセット
+          const filterSelectors = document.querySelectorAll('.filter-selector');
+          filterSelectors.forEach(selector => {
+            selector.classList.remove('active');
+            const filterText = selector.querySelector('.filter-text');
+            
+            if (selector.classList.contains('location-filter')) {
+              filterText.textContent = '都道府県を選ぶ';
+            } else if (selector.classList.contains('faculty-filter')) {
+              filterText.textContent = '学部系統を選ぶ';
+            } else if (selector.classList.contains('subject-filter')) {
+              filterText.textContent = '教科を選ぶ';
+            } else if (selector.classList.contains('price-filter')) {
+              filterText.textContent = '料金タイプを選ぶ';
+            }
+          });
+          
+          // モーダル内の選択もリセット
+          document.querySelectorAll('.faculty-option, .location-option, .subject-option, .price-option').forEach(option => {
+            option.classList.remove('selected');
+          });
+          
+          // チェックボックスをリセット
+          document.querySelectorAll('.form-check-input').forEach(checkbox => {
+            checkbox.checked = false;
+            checkbox.indeterminate = false;
+          });
+          
+          alert('すべての検索条件をリセットしました');
+        });
+      }
+      
+      // 検索ボタンのクリックイベント
+      const searchBtn = document.querySelector('.search-btn');
+      if (searchBtn) {
+        searchBtn.addEventListener('click', function() {
+          // 選択された条件を収集
+          const activeFilters = [];
+          
+          // 区分ボタン
+          document.querySelectorAll('.filter-btn.active').forEach(btn => {
+            activeFilters.push(btn.textContent);
+          });
+          
+          // フィルターセレクター
+          document.querySelectorAll('.filter-selector.active').forEach(selector => {
+            activeFilters.push(selector.querySelector('.filter-text').textContent);
+          });
+          
+          alert('検索条件: ' + (activeFilters.length > 0 ? activeFilters.join(', ') : '指定なし'));
+        });
+      }
+      
+      /**
+       * コースカードとポップオーバーの機能
+       */
+      
+      // ポップオーバー機能を設定
+      const setupPopoverManually = function() {
+        const allCards = document.querySelectorAll('.card-with-popover');
+        
+        allCards.forEach((card, index) => {
+          // 最後のカードには特別なクラスを追加
+          if (index === allCards.length - 1) {
+            card.classList.add('card-last');
+          }
+          
+          let popover = card.querySelector('.udemy-popover');
+          
+          if (popover) {
+            // マウスイベントを設定
+            card.addEventListener('mouseenter', function() {
+              // すべてのポップオーバーを非表示
+              document.querySelectorAll('.udemy-popover').forEach(p => {
+                p.style.display = 'none';
+              });
+              
+              // このカードのポップオーバーを表示
+              popover.style.display = 'block';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+              // 少し遅延を設けてポップオーバーを非表示（マウスがポップオーバーに入る時間を確保）
+              setTimeout(() => {
+                // ポップオーバー上にマウスがない場合のみ非表示
+                if (!popover.matches(':hover')) {
+                  popover.style.display = 'none';
+                }
+              }, 100);
+            });
+            
+            // ポップオーバー自体にもマウスイベントを設定
+            popover.addEventListener('mouseenter', function() {
+              // ポップオーバーの上にマウスがある間は表示を維持
+              popover.style.display = 'block';
+            });
+            
+            popover.addEventListener('mouseleave', function() {
+              // ポップオーバーからマウスが離れたら非表示
+              popover.style.display = 'none';
+            });
+            
+            // ポップオーバー内のカートボタン
+            const popoverButton = popover.querySelector('.btn-primary');
+            if (popoverButton) {
+              popoverButton.addEventListener('click', function() {
+                const addToCartBtn = card.querySelector('.add-to-cart-btn');
+                if (addToCartBtn) {
+                  addToCartBtn.click();
+                }
+              });
+            }
+          }
+        });
+      };
+      
+      /**
+       * 大学検索とサジェスト機能の初期化
+       */
+      function initializeUniversitySearch() {
+        console.log('Initializing university search...');
+        
+        // 大学データと略称マッピング
+        const universitiesData = [
+          { id: 1, name: '東京大学', aliases: ['東大', 'とうだい', 'トウダイ'], url: '#tokyo' },
+          { id: 2, name: '京都大学', aliases: ['京大', 'きょうだい', 'キョウダイ'], url: '#kyoto' },
+          { id: 3, name: '大阪大学', aliases: ['阪大', 'はんだい', 'ハンダイ'], url: '#osaka' },
+          { id: 4, name: '名古屋大学', aliases: ['名大', 'めいだい', 'メイダイ'], url: '#nagoya' },
+          { id: 5, name: '東北大学', aliases: ['東北大', 'とうほくだい', 'トウホクダイ'], url: '#tohoku' },
+          { id: 6, name: '九州大学', aliases: ['九大', 'きゅうだい', 'キュウダイ'], url: '#kyushu' },
+          { id: 7, name: '北海道大学', aliases: ['北大', 'ほくだい', 'ホクダイ'], url: '#hokkaido' },
+          { id: 8, name: '筑波大学', aliases: ['筑波大', 'つくばだい', 'ツクバダイ'], url: '#tsukuba' },
+          { id: 9, name: '慶應義塾大学', aliases: ['慶應', '慶應大', 'けいおう', 'ケイオウ'], url: '#keio' },
+          { id: 10, name: '早稲田大学', aliases: ['早稲田', 'わせだ', 'ワセダ'], url: '#waseda' },
+          { id: 11, name: '東京工業大学', aliases: ['東工大', 'とうこうだい', 'トウコウダイ'], url: '#titech' },
+          { id: 12, name: '一橋大学', aliases: ['一橋', 'ひとつばし', 'ヒトツバシ'], url: '#hitotsubashi' },
+          { id: 13, name: '神戸大学', aliases: ['神戸大', 'こうべだい', 'コウベダイ'], url: '#kobe' },
+          { id: 14, name: '広島大学', aliases: ['広大', 'ひろだい', 'ヒロダイ'], url: '#hiroshima' },
+          { id: 15, name: '東大阪大学', aliases: ['東大阪大', 'ひがしおおさかだい'], url: '#higashiosaka' },
+          { id: 16, name: '大東文化大学', aliases: ['大東', '大東大', 'だいとう', 'ダイトウ'], url: '#daito' },
+          { id: 17, name: '東京医科大学', aliases: ['東京医大', 'とうきょういだい'], url: '#tokyo-med' },
+          { id: 18, name: '東京外国語大学', aliases: ['東京外大', '外大', 'がいだい', 'ガイダイ'], url: '#tufs' },
+          { id: 19, name: '東京学芸大学', aliases: ['学芸大', 'がくげいだい', 'ガクゲイダイ'], url: '#tokyo-edu' },
+          { id: 20, name: '東京芸術大学', aliases: ['芸大', 'げいだい', 'ゲイダイ'], url: '#geidai' },
+        ];
+        
+        // DOM要素の取得 - セレクタ方式で取得を試みる
+        let searchInput = document.getElementById('universitySearch');
+        let suggestionsContainer = document.getElementById('searchSuggestions');
+        
+        // IDで見つからない場合は、クラスやタグで検索を試みる
+        if (!searchInput) {
+          console.log('Trying to find search input by selector...');
+          const inputs = document.querySelectorAll('input[placeholder="大学名で探す"]');
+          if (inputs.length > 0) {
+            searchInput = inputs[0];
+            // IDを追加
+            searchInput.id = 'universitySearch';
+            console.log('Found search input by placeholder:', searchInput);
+          }
+        }
+        
+        // サジェストコンテナを作成
+        if (!suggestionsContainer) {
+          console.log('Creating suggestions container...');
+          suggestionsContainer = document.createElement('div');
+          suggestionsContainer.id = 'searchSuggestions';
+          suggestionsContainer.className = 'position-absolute w-100 bg-white border rounded-3 mt-1 shadow-sm';
+          suggestionsContainer.style.zIndex = '1000';
+          suggestionsContainer.style.display = 'none';
+          suggestionsContainer.style.maxHeight = '300px';
+          suggestionsContainer.style.overflowY = 'auto';
+          
+          // 検索入力フィールドの親要素に追加
+          if (searchInput && searchInput.parentNode) {
+            searchInput.parentNode.appendChild(suggestionsContainer);
+            console.log('Appended suggestions container to parent');
+          }
+        }
+        
+        console.log('Search input:', searchInput);
+        console.log('Suggestions container:', suggestionsContainer);
+        
+        if (!searchInput || !suggestionsContainer) {
+          console.error('Search elements not found!');
+          return;
+        }
+        
+        // 現在選択されているサジェストアイテムのインデックス
+        let currentSuggestionIndex = -1;
+        
+        // 入力時のイベント
+        searchInput.addEventListener('input', function() {
+          const query = this.value.trim();
+          console.log('Input event, query:', query);
+          showSuggestions(query);
+        });
+        
+        // フォーカス時のイベント
+        searchInput.addEventListener('focus', function() {
+          if (this.value.trim()) {
+            console.log('Focus event, has value');
+            showSuggestions(this.value.trim());
+          }
+        });
+        
+        // キーダウンイベント（カーソルキーなどの対応）
+        searchInput.addEventListener('keydown', function(e) {
+          const suggestions = suggestionsContainer.querySelectorAll('.suggestion-item');
+          
+          if (suggestions.length === 0) return;
+          
+          // 下矢印キー
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            currentSuggestionIndex = (currentSuggestionIndex + 1) % suggestions.length;
+            highlightSuggestion(currentSuggestionIndex, suggestions);
+          } 
+          // 上矢印キー
+          else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            currentSuggestionIndex = (currentSuggestionIndex - 1 + suggestions.length) % suggestions.length;
+            highlightSuggestion(currentSuggestionIndex, suggestions);
+          } 
+          // Enterキー
+          else if (e.key === 'Enter') {
+            if (currentSuggestionIndex !== -1) {
+              e.preventDefault();
+              suggestions[currentSuggestionIndex].click();
+            }
+          }
+          // Escapeキー
+          else if (e.key === 'Escape') {
+            hideSuggestions();
+          }
+        });
+        
+        // クリック以外の場所をクリックした時に候補を非表示にする
+        document.addEventListener('click', function(e) {
+          if (searchInput && suggestionsContainer && 
+              !searchInput.contains(e.target) && 
+              !suggestionsContainer.contains(e.target)) {
+            hideSuggestions();
+          }
+        });
+        
+        /**
+         * 検索キーワードに基づいて大学候補を表示
+         */
+        function showSuggestions(query) {
+          console.log('Showing suggestions for:', query);
+          
+          if (!query) {
+            hideSuggestions();
+            return;
+          }
+          
+          // 検索キーワードの正規化（小文字化）
+          const normalizedQuery = query.toLowerCase();
+          
+          // 検索クエリにマッチする大学を検索（名称または略称）
+          const matchedUniversities = universitiesData.filter(uni => 
+            uni.name.toLowerCase().includes(normalizedQuery) ||
+            uni.aliases.some(alias => alias.toLowerCase().includes(normalizedQuery))
+          );
+          
+          console.log('Matched universities:', matchedUniversities.length);
+          
+          if (matchedUniversities.length === 0) {
+            hideSuggestions();
+            return;
+          }
+          
+          // サジェスト表示のHTMLを構築
+          let suggestionHTML = '';
+          matchedUniversities.forEach(uni => {
+            suggestionHTML += `
+              <div class="suggestion-item" data-university-id="${uni.id}" data-url="${uni.url}">
+                <div class="university-name">${uni.name}</div>
+                <i class="bi bi-chevron-right arrow-icon"></i>
+              </div>
+            `;
+          });
+          
+          // サジェストコンテナにHTMLをセット
+          suggestionsContainer.innerHTML = suggestionHTML;
+          suggestionsContainer.style.display = 'block';
+          
+          // 各サジェストアイテムにクリックイベントを追加
+          const suggestionItems = suggestionsContainer.querySelectorAll('.suggestion-item');
+          suggestionItems.forEach(item => {
+            item.addEventListener('click', function() {
+              const uniName = this.querySelector('.university-name').textContent;
+              const uniUrl = this.getAttribute('data-url');
+              
+              // 検索フィールドに選択した大学名をセット
+              searchInput.value = uniName;
+              
+              // サジェストを非表示
+              hideSuggestions();
+              
+              // 該当大学ページへ遷移（実際の実装では適切なURLを設定）
+              if (uniUrl) {
+                alert(`「${uniName}」のページに遷移します`); // 実際の実装ではページ遷移にする
+                // window.location.href = uniUrl;
+              }
+            });
+          });
+          
+          // 選択インデックスをリセット
+          currentSuggestionIndex = -1;
+        }
+        
+        /**
+         * サジェスト候補を非表示
+         */
+        function hideSuggestions() {
+          console.log('Hiding suggestions');
+          if (suggestionsContainer) {
+            suggestionsContainer.style.display = 'none';
+            currentSuggestionIndex = -1;
+          }
+        }
+        
+        /**
+         * 選択中のサジェストアイテムをハイライト
+         */
+        function highlightSuggestion(index, suggestionElements) {
+          // 全てのハイライトをクリア
+          suggestionElements.forEach(el => {
+            el.classList.remove('active');
+          });
+          
+          // 現在の選択アイテムをハイライト
+          if (index >= 0 && index < suggestionElements.length) {
+            suggestionElements[index].classList.add('active');
+            
+            // スクロール位置を調整
+            const containerHeight = suggestionsContainer.offsetHeight;
+            const itemHeight = suggestionElements[index].offsetHeight;
+            const scrollPos = index * itemHeight;
+            
+            suggestionsContainer.scrollTop = scrollPos - (containerHeight / 2) + (itemHeight / 2);
+          }
+        }
+      }
+      
+      // 大学検索機能の初期化 - 少し遅延させて実行
+      setTimeout(function() {
+        initializeUniversitySearch();
+      }, 500);
+      
+      /**
+       * カート機能
+       */
+      
+      // カートの状態を管理
+      const cart = {
+        items: [],
+        count: 0,
+        total: 0
+      };
+      
+      // 要素の取得
+      const cartCounter = document.getElementById('cart-counter');
+      const addToCartBtns = document.querySelectorAll('.add-to-cart-btn');
+      const addRecommendedBtns = document.querySelectorAll('.add-recommended-btn');
+      const goToCartBtn = document.getElementById('goToCartBtn');
+      const totalPriceEl = document.getElementById('totalPrice');
+      const addedCourseTitleEl = document.getElementById('addedCourseTitle');
+      
+      // モーダル要素
+      let cartModal;
+      try {
+        cartModal = new bootstrap.Modal(document.getElementById('cartModal'));
+      } catch (e) {
+        console.error('モーダル初期化エラー:', e);
+      }
+      
+      // カートカウンターの更新
+      function updateCartCounter() {
+        if (cartCounter) {
+          cartCounter.textContent = cart.count;
+          
+          // カウンタが0の場合は非表示
+          if (cart.count === 0) {
+            cartCounter.style.display = 'none';
+          } else {
+            cartCounter.style.display = 'block';
+          }
+        }
+      }
+      
+      // 合計金額の更新
+      function updateTotalPrice() {
+        if (totalPriceEl) {
+          totalPriceEl.textContent = '¥' + cart.total.toLocaleString();
+        }
+      }
+      
+      // カートに商品を追加
+      function addToCart(courseId, courseTitle, coursePrice) {
+        // すでにカートに存在するかチェック
+        const existingItem = cart.items.find(item => item.id === courseId);
+        
+        if (!existingItem) {
+          cart.items.push({
+            id: courseId,
+            title: courseTitle,
+            price: coursePrice
+          });
+          
+          cart.count++;
+          cart.total += parseInt(coursePrice);
+          
+          // ボタンのテキストを更新
+          const btns = document.querySelectorAll(`.add-to-cart-btn[data-course-id="${courseId}"]`);
+          btns.forEach(btn => {
+            btn.textContent = 'カートに追加しました';
+            btn.classList.remove('btn-outline-primary');
+            btn.classList.add('btn-success');
+            
+            // 2秒後に元に戻す
+            setTimeout(() => {
+              btn.textContent = 'カートに入れる';
+              btn.classList.remove('btn-success');
+              btn.classList.add('btn-outline-primary');
+            }, 2000);
+          });
+          
+          updateCartCounter();
+        }
+      }
+      
+      // カートに追加ボタンのハンドラー
+      function addToCartHandler(event) {
+        const btn = event.currentTarget;
+        const courseId = btn.dataset.courseId;
+        const courseTitle = btn.dataset.courseTitle;
+        const coursePrice = parseInt(btn.dataset.coursePrice);
+        
+        addToCart(courseId, courseTitle, coursePrice);
+        
+        // モーダルに追加された商品の情報を表示
+        if (addedCourseTitleEl) {
+          addedCourseTitleEl.textContent = courseTitle;
+        }
+        updateTotalPrice();
+        
+        // モーダルを表示
+        if (cartModal) {
+          cartModal.show();
+        }
+      }
+      
+      // おすすめ商品を追加ボタンのハンドラー
+      function addRecommendedHandler(event) {
+        const btn = event.currentTarget;
+        const courseId = btn.dataset.courseId;
+        const courseTitle = btn.dataset.courseTitle;
+        const coursePrice = parseInt(btn.dataset.coursePrice);
+        
+        addToCart(courseId, courseTitle, coursePrice);
+        updateTotalPrice();
+        
+        // ボタンを無効化
+        btn.disabled = true;
+        btn.innerHTML = '<i class="bi bi-check"></i>';
+      }
+      
+      // まとめてカートに追加ボタンのハンドラー
+      function addAllToCartHandler() {
+        alert('すべての商品をカートに追加しました');
+        if (cartModal) {
+          cartModal.hide();
+        }
+      }
+      
+      // イベントリスナーの追加
+      addToCartBtns.forEach(btn => {
+        btn.addEventListener('click', addToCartHandler);
+      });
+      
+      addRecommendedBtns.forEach(btn => {
+        btn.addEventListener('click', addRecommendedHandler);
+      });
+      
+      if (goToCartBtn) {
+        goToCartBtn.addEventListener('click', addAllToCartHandler);
+      }
+      
+      // ポップオーバーを設定
+      setupPopoverManually();
+      
+      // 初期化
+      updateCartCounter();
+    });
+  </script>
+</body>
+</html>

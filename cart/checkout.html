@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>注文の確定 - Udemy Clone</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="header.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f7f9fa;
+    }
+    .rating-stars {
+      color: #f4c150;
+    }
+    .udemy-logo {
+      height: 34px;
+    }
+    .bestseller-badge {
+      background-color: #eceb98;
+      color: #3d3c0a;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+    }
+    .checkout-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+    .course-image {
+      width: 100px;
+      height: 56px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+    .order-summary {
+      background-color: #fff;
+      border-radius: 6px;
+      padding: 24px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+    .checkout-btn {
+      background-color: #8710d8;
+      border-color: #8710d8;
+      font-weight: bold;
+      padding: 12px;
+    }
+    .checkout-btn:hover {
+      background-color: #7212b3;
+      border-color: #7212b3;
+    }
+    .terms-text {
+      font-size: 0.85rem;
+      color: #6a6f73;
+    }
+    .agreement-checkbox {
+      margin-right: 8px;
+    }
+    .course-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #1c1d1f;
+    }
+    .price-line {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .discount-price {
+      font-weight: bold;
+      color: #1c1d1f;
+    }
+    .original-price {
+      text-decoration: line-through;
+      color: #6a6f73;
+    }
+    .total-price {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #1c1d1f;
+    }
+    .card-modal {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      max-width: 500px;
+      width: 100%;
+      padding: 0;
+    }
+    .card-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid #e3e6f0;
+    }
+    .card-modal-body {
+      padding: 20px;
+    }
+    .card-input {
+      padding: 12px 16px;
+      border: 1px solid #d1d7dc;
+      border-radius: 4px;
+    }
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .payment-confirm-btn {
+      background-color: #8710d8;
+      border-color: #8710d8;
+      color: white;
+      font-weight: bold;
+      padding: 12px;
+      width: 100%;
+      border-radius: 4px;
+      border: none;
+    }
+    .payment-confirm-btn:hover {
+      background-color: #7212b3;
+    }
+    .modal-close {
+      cursor: pointer;
+      font-size: 1.5rem;
+    }
+    
+    /* レスポンシブ調整 */
+    @media (max-width: 768px) {
+      .order-summary {
+        margin-top: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 共通ヘッダー -->
+  <header class="site-header">
+    <div class="announcement-bar">
+      2025年度 入試対策講座の申込受付中！早期割引は6月末まで
+      <a href="#" class="announcement-link">詳細はこちら</a>
+    </div>
+    <nav class="navbar">
+      <div class="container">
+        <a href="/" class="navbar-brand d-flex align-items-center">
+          <span class="logo-text">Edbase</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="#">コース</a></li>
+          <li><a href="#">プラン</a></li>
+          <li><a href="#">大学情報</a></li>
+          <li><a href="#">合格体験記</a></li>
+          <li><a href="#">講師紹介</a></li>
+        </ul>
+        <div class="nav-actions">
+          <button class="icon-btn" aria-label="お気に入り"><i class="bi bi-heart"></i></button>
+          <button class="icon-btn cart-btn" aria-label="カート">
+            <i class="bi bi-cart"></i>
+            <span id="cart-count" class="cart-count">0</span>
+          </button>
+          <button class="icon-btn" aria-label="通知"><i class="bi bi-bell"></i></button>
+          <button class="icon-btn user-btn" aria-label="ユーザー">
+            <span class="user-initial">U</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <main class="py-4">
+    <div class="checkout-container">
+      <div class="row g-4">
+        <!-- 左側：注文情報 -->
+        <div class="col-lg-8">
+          <div class="bg-white p-4 rounded mb-4">
+            <h2 class="h5 mb-4">お名前をフルネームでご記入ください</h2>
+            <div class="mb-4">
+              <input type="text" class="form-control" placeholder="例：佐藤 太郎">
+            </div>
+
+            <div class="mb-4">
+              <div class="form-check">
+                <input class="form-check-input agreement-checkbox" type="checkbox" id="agreementCheck" checked>
+                <label class="form-check-label" for="agreementCheck">
+                  ご満足時に同意します
+                </label>
+              </div>
+              <p class="terms-text mt-2 mb-0">下記の受講規約をご確認いただき、同意のうえお申込みください。</p>
+            </div>
+
+            <div class="card mb-4">
+              <div class="card-body terms-text">
+                <p>本規約は、エデュ・プラニング株式会社（以下「当社」といいます。）が提供する「bridge★」（以下「本サービス」といいます。）を利用される際に適用されます。ご利用にあたっては、本規約をお読みいただき、内容をご承諾の上でご利用ください。</p>
+                <p>第1条（規約の適用）１本規約は、当社が本サービスを提供するにあたって、利用者が本サービスの提供を受けるにあたっての諸条件を定めたものです。２当社は、本サービスに関して、本規約のほか、本サービスの利用に関する個別規約その他のガイドライン等を定めることがあります。この場合、当該個別規約その他のガイドライン等は、本規約の一部として適用されます。</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 注文詳細 -->
+          <h3 class="h5 mb-3">ご注文詳細 (5件のコース)</h3>
+          <div class="bg-white p-4 rounded mb-4">
+            <!-- コース1 -->
+            <div class="d-flex mb-4 pb-3 border-bottom">
+              <img src="seito.jpeg" class="course-image me-3" alt="コースイメージ">
+              <div>
+                <h4 class="course-title mb-1">【SAA-C03版】これだけでOK！AWS 認定ソリューションアーキテクト - アソシエイト試験突破講座</h4>
+                <div class="d-flex justify-content-between align-items-end">
+                  <p class="mb-0 text-muted small">¥8,800</p>
+                  <p class="mb-0 discount-price">¥1,800</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- コース2 -->
+            <div class="d-flex mb-4 pb-3 border-bottom">
+              <img src="seito.jpeg" class="course-image me-3" alt="コースイメージ">
+              <div>
+                <h4 class="course-title mb-1">AWS：ゼロから実践するAmazon Web Services。手を動かしながらインフラの基礎を習得</h4>
+                <div class="d-flex justify-content-between align-items-end">
+                  <p class="mb-0 text-muted small">¥11,800</p>
+                  <p class="mb-0 discount-price">¥2,200</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- コース3 -->
+            <div class="d-flex mb-4 pb-3 border-bottom">
+              <img src="seito.jpeg" class="course-image me-3" alt="コースイメージ">
+              <div>
+                <h4 class="course-title mb-1">【ベストセラー完全日本語化】AWS 認定ソリューションアーキテクト アソシエイト SAA-C03 対応 2023 最新版</h4>
+                <div class="d-flex justify-content-between align-items-end">
+                  <p class="mb-0 text-muted small">¥27,800</p>
+                  <p class="mb-0 discount-price">¥3,000</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- コース4 -->
+            <div class="d-flex mb-4 pb-3 border-bottom">
+              <img src="seito.jpeg" class="course-image me-3" alt="コースイメージ">
+              <div>
+                <h4 class="course-title mb-1">【AWS初心者向け】手を動かして身につける！実戦で役立つAWSサービスの基礎とアーキテクチャ(SAA レベル)</h4>
+                <div class="d-flex justify-content-between align-items-end">
+                  <p class="mb-0 text-muted small">¥27,800</p>
+                  <p class="mb-0 discount-price">¥3,000</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- コース5 -->
+            <div class="d-flex mb-0">
+              <img src="seito.jpeg" class="course-image me-3" alt="コースイメージ">
+              <div>
+                <h4 class="course-title mb-1">Ultimate AWS Certified Solutions Architect Associate 2025</h4>
+                <div class="d-flex justify-content-between align-items-end">
+                  <p class="mb-0 text-muted small">¥27,800</p>
+                  <p class="mb-0 discount-price">¥2,200</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 右側：注文サマリー -->
+        <div class="col-lg-4">
+          <div class="order-summary">
+            <h2 class="h5 mb-4">注文の概要</h2>
+            
+            <div class="price-line">
+              <span>元の価格:</span>
+              <span class="original-price">¥104,000</span>
+            </div>
+            
+            <div class="price-line">
+              <span>割引 (88%OFF) :</span>
+              <span>-¥91,800</span>
+            </div>
+            
+            <div class="price-line border-top pt-3 mt-3">
+              <span>合計 (5件のコース):</span>
+              <span class="total-price">¥12,200</span>
+            </div>
+            
+            <p class="small text-muted mt-3 mb-4">支払いを完了することにより、ご利用のサービス規約に同意したものとみなされます。</p>
+            
+            <button id="checkoutButton" class="btn checkout-btn w-100">
+              <i class="bi bi-lock-fill me-2"></i>決済完了
+            </button>
+            
+            <div class="mt-4 text-center">
+              <p class="mb-1"><strong>30日間返金保証</strong></p>
+              <p class="small text-muted mb-0">ご満足いただけない場合は30日以内に全額返金いたします。簡単でシンプルです。一部例外あり。詳しくは<a href="#">返金ポリシー</a>をご参照ください。</p>
+            </div>
+            
+            <hr class="my-4">
+            
+            <div class="small text-muted">
+              <p class="mb-1">支払い時期/価格設定については、<a href="#">特定商取引法</a>に基づく表示をご確認ください。</p>
+              <p class="mb-0">ご注文内容の変更は、「キャンセル」ボタンまたはブラウザの戻るボタンでショッピングカートに戻ってください。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- クレジットカード情報モーダル -->
+  <div id="cardModal" class="modal-backdrop">
+    <div class="card-modal">
+      <div class="card-modal-header">
+        <h3 class="h5 mb-0">クレジットカード情報</h3>
+        <span class="modal-close" id="modalClose">&times;</span>
+      </div>
+      <div class="card-modal-body">
+        <div class="mb-4">
+          <label class="form-label">カード情報</label>
+          <div class="position-relative">
+            <input type="text" class="form-control card-input" placeholder="カード番号" id="cardNumber">
+            <div class="position-absolute top-50 end-0 translate-middle-y pe-3">
+              <i class="bi bi-credit-card text-muted"></i>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row mb-4">
+          <div class="col">
+            <input type="text" class="form-control card-input" placeholder="月 / 年" id="cardExpiry">
+          </div>
+        </div>
+        
+        <div class="mb-4">
+          <p class="mb-2">お支払い金額: <strong>¥12,200</strong></p>
+        </div>
+        
+        <button id="confirmPayment" class="payment-confirm-btn">
+          支払いを確定する
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap 5 JS with Popper -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // モーダル関連の要素
+      const cardModal = document.getElementById('cardModal');
+      const checkoutButton = document.getElementById('checkoutButton');
+      const modalClose = document.getElementById('modalClose');
+      const confirmPayment = document.getElementById('confirmPayment');
+      const cardNumber = document.getElementById('cardNumber');
+      const cardExpiry = document.getElementById('cardExpiry');
+      
+      // チェックアウトボタンクリック時
+      checkoutButton.addEventListener('click', function() {
+        // モーダルを表示
+        cardModal.style.display = 'flex';
+      });
+      
+      // モーダルを閉じる
+      modalClose.addEventListener('click', function() {
+        cardModal.style.display = 'none';
+      });
+      
+      // モーダル外クリックで閉じる
+      cardModal.addEventListener('click', function(e) {
+        if (e.target === cardModal) {
+          cardModal.style.display = 'none';
+        }
+      });
+      
+      // クレジットカード番号の入力制限とフォーマット
+      cardNumber.addEventListener('input', function(e) {
+        // 数字以外を削除
+        let value = e.target.value.replace(/\D/g, '');
+        
+        // 16桁までに制限
+        if (value.length > 16) {
+          value = value.slice(0, 16);
+        }
+        
+        // 4桁ごとにスペースを追加
+        const chunks = [];
+        for (let i = 0; i < value.length; i += 4) {
+          chunks.push(value.slice(i, i + 4));
+        }
+        
+        e.target.value = chunks.join(' ');
+      });
+      
+      // 有効期限の入力制限とフォーマット
+      cardExpiry.addEventListener('input', function(e) {
+        // 数字以外を削除
+        let value = e.target.value.replace(/\D/g, '');
+        
+        // 4桁までに制限
+        if (value.length > 4) {
+          value = value.slice(0, 4);
+        }
+        
+        // MM/YY形式にフォーマット
+        if (value.length > 2) {
+          value = value.slice(0, 2) + ' / ' + value.slice(2);
+        }
+        
+        e.target.value = value;
+      });
+      
+      // 支払いを確定するボタンのクリック
+      confirmPayment.addEventListener('click', function() {
+        // カード番号と有効期限の入力チェック
+        const cardNumberValue = cardNumber.value.replace(/\s/g, '');
+        const cardExpiryValue = cardExpiry.value.replace(/\s/g, '').replace(/\//g, '');
+        
+        if (cardNumberValue.length !== 16) {
+          alert('有効なカード番号を入力してください（16桁）');
+          return;
+        }
+        
+        if (cardExpiryValue.length !== 4) {
+          alert('有効な有効期限を入力してください（MM/YY）');
+          return;
+        }
+        
+        // 支払い処理が成功したと仮定して処理
+        alert('支払いが完了しました！購入ありがとうございます。');
+        cardModal.style.display = 'none';
+        
+        // 購入完了後、マイラーニングページに遷移（仮）
+        setTimeout(function() {
+          window.location.href = 'thankyou.html';
+        }, 1000);
+      });
+    });
+  </script>
+</body>
+</html>
